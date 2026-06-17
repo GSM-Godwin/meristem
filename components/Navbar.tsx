@@ -30,26 +30,26 @@ export default function Navbar() {
 
           {/* Hamburger — visible on mobile only */}
           <button
-            className="md:hidden flex flex-col gap-[5px] p-3 z-51 relative touch-manipulation"
+            className="md:hidden flex flex-col gap-1.25 p-3 z-51 relative touch-manipulation"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
-            <span className={`block w-6 h-0.5 bg-yellow rounded transition-transform duration-300 pointer-events-none ${mobileOpen ? "translate-y-[7px] rotate-45" : ""}`} />
+            <span className={`block w-6 h-0.5 bg-yellow rounded transition-transform duration-300 pointer-events-none ${mobileOpen ? "translate-y-1.75 rotate-45" : ""}`} />
             <span className={`block w-6 h-0.5 bg-yellow rounded transition-opacity duration-300 pointer-events-none ${mobileOpen ? "opacity-0" : ""}`} />
-            <span className={`block w-6 h-0.5 bg-yellow rounded transition-transform duration-300 pointer-events-none ${mobileOpen ? "translate-y-[-7px] -rotate-45" : ""}`} />
+            <span className={`block w-6 h-0.5 bg-yellow rounded transition-transform duration-300 pointer-events-none ${mobileOpen ? "translate-y-[1.75 -rotate-45" : ""}`} />
           </button>
 
         </div>
 
         {/* BOTTOM BAR — desktop only */}
         <nav className="hidden md:flex items-center justify-end px-5 md:px-10 lg:px-20 h-12 bg-yellow gap-2">
-          <Link href="/about" className="px-5 h-12 flex items-center text-white text-sm hover:opacity-75 transition-opacity">
+          <Link href="/about" className="px-5 h-12 flex items-center text-white text-[16px] hover:opacity-75 transition-opacity">
             About Us
           </Link>
-          <Link href="/insights" className="px-5 h-12 flex items-center text-white text-sm hover:opacity-75 transition-opacity">
+          <Link href="/insights" className="px-5 h-12 flex items-center text-white text-[16px] hover:opacity-75 transition-opacity">
             Insights
           </Link>
-          <Link href="/perspectives" className="pl-5 h-12 flex items-center text-white text-sm hover:opacity-75 transition-opacity">
+          <Link href="/perspectives" className="pl-5 h-12 flex items-center text-white text-[16px] hover:opacity-75 transition-opacity">
             Perspectives
           </Link>
         </nav>
