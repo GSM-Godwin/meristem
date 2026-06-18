@@ -161,17 +161,17 @@ export default function InsightsContent() {
       {/* Hero */}
       <section className="px-5 md:px-10 lg:px-20 pt-16 pb-20">
         <div className="max-w-360 mx-auto flex flex-col items-center text-center">
-          <h1 className="text-[48px] font-semibold text-[#3B2314] mb-6">
+          <h1 className="text-[48px] font-semibold text-dark2 leading-15 mb-6">
             Insights
           </h1>
-          <p className="text-lg text-[#535B6E] leading-7 max-w-[768px] mb-10">
+          <p className="text-[20px] text-neutral leading-7.5 max-w-3xl mb-10">
             A curated collection of articles, videos, reports, conversations,
             and thought leadership exploring the realities of wealth,
             continuity, family enterprise, and legacy.
           </p>
           <form
             onSubmit={handleSubscribe}
-            className="flex w-full max-w-[480px]"
+            className="flex w-full max-w-120"
           >
             <input
               type="email"
@@ -179,11 +179,11 @@ export default function InsightsContent() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               required
-              className="flex-1 px-4 py-3 text-base border border-[#DEE3EB] rounded-l-lg outline-none focus:border-yellow placeholder:text-[#A5ADC0]"
+              className="flex-1 px-4 py-3 text-base border border-neutral rounded-l-lg outline-none focus:border-yellow placeholder:text-[#A5ADC0]"
             />
             <button
               type="submit"
-              className="px-6 py-3 bg-yellow text-white text-base font-medium rounded-r-lg hover:opacity-90 transition-opacity"
+              className="px-6 py-3 bg-yellow text-white text-base font-medium rounded-lg hover:opacity-90 transition-opacity"
             >
               Subscribe
             </button>
@@ -194,7 +194,7 @@ export default function InsightsContent() {
       {/* Recent Publications */}
       <section className="px-5 md:px-10 lg:px-20 pb-20">
         <div className="max-w-360 mx-auto">
-          <h2 className="text-[30px] font-semibold text-[#3B2314] mb-8">
+          <h2 className="text-[24px] font-semibold text-dark2 leading-9 mb-8">
             Recent Publications
           </h2>
 
@@ -214,8 +214,8 @@ export default function InsightsContent() {
                   onClick={() => handleCategoryChange(category.id)}
                   className={`px-4 py-2 text-sm rounded-full transition-colors ${
                     isActive
-                      ? "bg-primarybg text-[#3B2314] font-medium"
-                      : "text-[#535B6E] hover:text-[#3B2314]"
+                      ? "bg-primarybg text-yellow font-medium"
+                      : "text-neutral hover:text-[#3B2314]"
                   }`}
                 >
                   {category.label}
