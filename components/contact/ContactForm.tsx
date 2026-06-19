@@ -23,14 +23,14 @@ export default function ContactForm() {
   };
 
   const inputClassName =
-    "w-full px-4 py-3 text-base text-[#181D27] border border-[#DEE3EB] rounded-lg outline-none focus:border-yellow placeholder:text-[#A5ADC0]";
+    "w-full px-4 py-3.5 sm:py-3 text-base text-[#181D27] border border-[#DEE3EB] rounded-lg outline-none focus:border-yellow placeholder:text-[#A5ADC0]";
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="border border-[#E9EAEB] rounded-xl p-8 flex flex-col gap-6"
+      className="border border-[#E9EAEB] rounded-xl p-5 sm:p-8 flex flex-col gap-5 sm:gap-6"
     >
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         <div className="flex flex-col gap-2">
           <label htmlFor="firstName" className="text-sm font-medium text-[#535862]">
             First name

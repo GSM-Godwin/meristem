@@ -3,20 +3,19 @@
 import { useMemo, useState } from "react";
 import PostCard from "@/components/shared/PostCard";
 import Pagination from "@/components/shared/Pagination";
-import {
-  getPaginatedPublications,
-  getTotalPublicationPages,
-} from "@/lib/data/publications";
+import { insights } from "@/lib/data/insights";
 
-export default function PublicationsContent() {
+const PER_PAGE = 9;
+
+export default function InsightsAllContent() {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const paginatedPublications = useMemo(
-    () => getPaginatedPublications(currentPage),
-    [currentPage]
-  );
+  const totalPages = Math.max(1, Math.ceil(insights.length / PER_PAGE));
 
-  const totalPages = getTotalPublicationPages();
+  const paginatedInsights = useMemo(() => {
+    const start = (currentPage - 1) * PER_PAGE;
+    return insights.slice(start, start + PER_PAGE);
+  }, [currentPage]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -29,11 +28,12 @@ export default function PublicationsContent() {
       <section className="px-5 md:px-10 lg:px-20 pt-14 pb-10">
         <div className="max-w-6xl mx-auto flex flex-col items-center text-center">
           <h1 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl font-semibold text-dark1 mb-5">
-            Publications
+            Insights
           </h1>
           <p className="text-base md:text-lg text-neutral leading-relaxed max-w-2xl">
-            Subscribe to learn about new product features, the latest in
-            technology, solutions, and updates.
+            A curated collection of articles, videos, reports, conversations,
+            and thought leadership exploring the realities of wealth,
+            continuity, family enterprise, and legacy.
           </p>
         </div>
       </section>
@@ -42,20 +42,19 @@ export default function PublicationsContent() {
       <section className="px-5 md:px-10 lg:px-20 pb-20">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-xl font-semibold text-dark1 mb-10">
-            All publications
+            All insights
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-12 mb-14">
-            {paginatedPublications.map((pub) => (
+            {paginatedInsights.map((insight) => (
               <PostCard
-                key={pub.id}
-                href={`/publications/${pub.slug}`}
-                variant="publication"
-                coverColor={pub.coverColor}
-                title={pub.title}
-                author={pub.author}
-                date={pub.date}
-                excerpt={pub.excerpt}
+                key={insight.id}
+                href={`/insights/${insight.slug}`}
+                variant="insight"
+                title={insight.title}
+                author={insight.author}
+                date={insight.date}
+                excerpt={insight.excerpt}
               />
             ))}
           </div>

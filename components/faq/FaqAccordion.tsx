@@ -5,7 +5,7 @@ import type { FaqItem } from "@/lib/types/faq";
 
 function ToggleIcon({ open }: { open: boolean }) {
   return (
-    <span className="shrink-0 w-8 h-8 rounded-full border border-[#DEE3EB] flex items-center justify-center text-[#535862]">
+    <span className="shrink-0 w-9 h-9 sm:w-8 sm:h-8 rounded-full border border-[#DEE3EB] flex items-center justify-center text-[#535862]">
       <svg
         width="16"
         height="16"
@@ -75,17 +75,17 @@ export default function FaqAccordion({
               type="button"
               onClick={() => toggleItem(item.id)}
               aria-expanded={isOpen}
-              className="w-full flex items-start justify-between gap-6 py-6 text-left"
+              className="w-full flex items-start justify-between gap-4 py-5 md:py-6 text-left touch-manipulation min-h-14"
             >
-              <span className="text-lg font-semibold text-[#181D27] leading-7">
+              <span className="text-base md:text-lg font-semibold text-[#181D27] leading-7">
                 {item.question}
               </span>
               <ToggleIcon open={isOpen} />
             </button>
 
             {isOpen && (
-              <div className="pb-6 pr-14">
-                <p className="text-base text-[#535862] leading-6">
+              <div className="pb-5 md:pb-6 pr-10 sm:pr-14">
+                <p className="text-sm md:text-base text-[#535862] leading-6">
                   {item.answer}
                 </p>
               </div>

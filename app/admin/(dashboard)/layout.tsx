@@ -1,5 +1,9 @@
 import AdminSidebar from "@/components/admin/AdminSidebar";
 
+// Admin pages are always server-rendered on demand — never prerendered.
+// This prevents build-time Prisma calls hitting a sleeping database.
+export const dynamic = "force-dynamic";
+
 export default function DashboardLayout({
   children,
 }: {

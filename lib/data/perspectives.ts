@@ -1,4 +1,14 @@
 import type { Perspective } from "@/lib/types/perspective";
+import type { ContentBlock } from "@/lib/types/insight";
+
+const defaultPerspectiveContent: ContentBlock[] = [
+  { type: "paragraph", text: "Mi tincidunt elit, id quisque ligula ac diam, amet. Vel etiam suspendisse morbi eleifend faucibus eget vestibulum felis. Dictum quis montes, sit sit. Tellus aliquam enim urna, etiam. Mauris posuere vulputate arcu amet, vitae nisi, tellus tincidunt." },
+  { type: "heading", text: "Key takeaways" },
+  { type: "paragraph", text: "Eget quis mi enim, leo lacinia pharetra, semper. Eget in volutpat mollis at volutpat lectus velit, sed auctor. Porttitor fames arcu quis fusce augue enim. Quis at habitant diam at. Suscipit tristique risus, at donec." },
+  { type: "image-row", captions: ["", ""] },
+  { type: "blockquote", quote: "The families that thrive across generations are those who invest as much in their relationships and values as they do in their financial assets.", attribution: "Meristem Family Office" },
+  { type: "paragraph", text: "Morbi sed imperdiet in ipsum, adipiscing elit dui lectus. Tellus id scelerisque est ultricies ultricies. Duis est sit sed leo nisl, blandit elit sagittis. Quisque tristique consequat quam sed." },
+];
 
 export const PERSPECTIVES_PER_PAGE = 15;
 
@@ -32,6 +42,8 @@ function buildPerspectives(count: number): Perspective[] {
       author: "Brand & Comms Team",
       date: "28 Mar 2024",
       duration: template.duration,
+      intro: "Starting a community doesn't need to be complicated. This conversation explores how families can foster meaningful dialogue across generations and steward shared purpose.",
+      content: defaultPerspectiveContent,
     };
   });
 }

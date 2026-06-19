@@ -1,0 +1,104 @@
+import Image from "next/image";
+import Link from "next/link";
+import logo from "@/assets/logo.png";
+import PlayButton from "@/components/perspectives/PlayButton";
+
+// ─── Arrow icon ──────────────────────────────────────────────────────────────
+function ArrowUpRight({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      className={`shrink-0 ${className}`}
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <line x1="7" y1="17" x2="17" y2="7" />
+      <polyline points="7 7 17 7 17 17" />
+    </svg>
+  );
+}
+
+// ─── Types ────────────────────────────────────────────────────────────────────
+export type CardVariant = "publication" | "insight" | "perspective";
+
+export interface PostCardProps {
+  href: string;
+  variant: CardVariant;
+  /** Applies a background color to the card thumbnail (publications). */
+  coverColor?: string;
+  title: string;
+  author: string;
+  date: string;
+  /** Only rendered for perspectives. */
+  duration?: string;
+  /** Optional — perspectives typically omit this. */
+  excerpt?: string;
+}
+
+// ─── Component ────────────────────────────────────────────────────────────────
+export default function PostCard({
+  href,
+  variant,
+  coverColor,
+  title,
+  author,
+  date,
+  duration,
+  excerpt,
+}: PostCardProps) {
+  const bgColor =
+    variant === "publication" ? (coverColor ?? "#F2EDE0") : "#F2EDE0";
+
+  const metaColor =
+    variant === "publication"
+      ? "text-yellow font-semibold"
+      : "text-neutral";
+
+  return (
+    <Link href={href} className="group flex flex-col gap-4">
+      {/* Thumbnail */}
+      <div
+        className="relative w-full aspect-[3/2] overflow-hidden rounded-sm"
+        style={{ backgroundColor: bgColor }}
+      >
+        <Image
+          src={logo}
+          alt={title}
+          fill
+          className="object-contain p-10"
+        />
+        {variant === "perspective" && <PlayButton />}
+      </div>
+
+      {/* Card body */}
+      <div className="flex flex-col gap-2">
+        {/* Byline */}
+        <p className={`text-sm ${metaColor}`}>
+          {author}&nbsp;&bull;&nbsp;{date}
+          {duration ? ` (${duration})` : ""}
+        </p>
+
+        {/* Title + arrow */}
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="text-base font-semibold text-dark1 group-hover:text-yellow transition-colors leading-snug">
+            {title}
+          </h3>
+          <ArrowUpRight className="text-dark1 mt-0.5" />
+        </div>
+
+        {/* Excerpt */}
+        {excerpt && (
+          <p className="text-sm text-neutral leading-relaxed line-clamp-2">
+            {excerpt}
+          </p>
+        )}
+      </div>
+    </Link>
+  );
+}

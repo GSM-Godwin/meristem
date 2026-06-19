@@ -12,14 +12,22 @@ export function slugify(input: string): string {
 }
 
 /**
+ * Slugs that must never be assigned to a real post because they
+ * conflict with reserved route segments (e.g. /insights/all).
+ */
+const RESERVED_SLUGS = new Set(["all", "new", "edit"]);
+
+/**
  * Generate a unique slug for a Post. If the base slug is already taken,
- * append a short random suffix until a free one is found.
+ * or matches a reserved word, append a short random suffix.
  */
 export async function generateUniqueSlug(title: string): Promise<string> {
   const base = slugify(title) || "post";
 
-  const existing = await prisma.post.findUnique({ where: { slug: base } });
-  if (!existing) return base;
+  if (!RESERVED_SLUGS.has(base)) {
+    const existing = await prisma.post.findUnique({ where: { slug: base } });
+    if (!existing) return base;
+  }
 
   // Collision — append short random suffixes until unique.
   for (let attempt = 0; attempt < 10; attempt++) {

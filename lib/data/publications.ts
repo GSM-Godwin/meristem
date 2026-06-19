@@ -3,6 +3,16 @@ import type {
   PublicationCategory,
   PublicationCategoryFilter,
 } from "@/lib/types/publication";
+import type { ContentBlock } from "@/lib/types/insight";
+
+const defaultPublicationContent: ContentBlock[] = [
+  { type: "paragraph", text: "Mi tincidunt elit, id quisque ligula ac diam, amet. Vel etiam suspendisse morbi eleifend faucibus eget vestibulum felis. Dictum quis montes, sit sit. Tellus aliquam enim urna, etiam. Mauris posuere vulputate arcu amet, vitae nisi, tellus tincidunt." },
+  { type: "heading", text: "Introduction" },
+  { type: "paragraph", text: "Eget quis mi enim, leo lacinia pharetra, semper. Eget in volutpat mollis at volutpat lectus velit, sed auctor. Porttitor fames arcu quis fusce augue enim. Quis at habitant diam at. Suscipit tristique risus, at donec." },
+  { type: "image-row", captions: ["", ""] },
+  { type: "blockquote", quote: "The families that thrive across generations are those who invest as much in their relationships and values as they do in their financial assets.", attribution: "Meristem Family Office" },
+  { type: "paragraph", text: "Morbi sed imperdiet in ipsum, adipiscing elit dui lectus. Tellus id scelerisque est ultricies ultricies. Duis est sit sed leo nisl, blandit elit sagittis. Quisque tristique consequat quam sed. Nisl at scelerisque amet nulla purus habitasse." },
+];
 
 export const PUBLICATION_CATEGORIES: PublicationCategoryFilter[] = [
   { id: "all", label: "View all" },
@@ -86,10 +96,12 @@ function buildPublications(count: number): Publication[] {
       slug: pageOffset > 0 ? `${template.slug}-${pageOffset + 1}` : template.slug,
       title: template.title,
       excerpt: template.excerpt,
+      intro: template.excerpt,
       author: "Brand & Comms Team",
       date: "28 Mar 2024",
       category: template.category,
       coverColor: coverColors[index % coverColors.length],
+      content: defaultPublicationContent,
     };
   });
 }

@@ -2,13 +2,8 @@ import Image from "next/image";
 import logo from "@/assets/logo.png";
 import type { ContentBlock } from "@/lib/types/insight";
 
-function ArticleImage({
-  caption,
-  className = "",
-}: {
-  caption?: string;
-  className?: string;
-}) {
+// Image captions are intentionally omitted — do not add them back.
+function ArticleImage({ className = "" }: { className?: string }) {
   return (
     <figure className={className}>
       <div className="relative w-full aspect-[720/480] bg-[#F2EDE0] overflow-hidden">
@@ -19,11 +14,6 @@ function ArticleImage({
           className="object-contain p-12"
         />
       </div>
-      {caption && (
-        <figcaption className="mt-3 text-center text-base text-[#535862]">
-          {caption}
-        </figcaption>
-      )}
     </figure>
   );
 }
@@ -54,19 +44,13 @@ export default function ArticleContent({ blocks }: { blocks: ContentBlock[] }) {
             );
 
           case "image":
-            return (
-              <ArticleImage
-                key={index}
-                caption={block.caption}
-                className="my-4"
-              />
-            );
+            return <ArticleImage key={index} className="my-4" />;
 
           case "image-row":
             return (
-              <div key={index} className="grid grid-cols-2 gap-8 my-4">
-                <ArticleImage caption={block.captions?.[0]} />
-                <ArticleImage caption={block.captions?.[1]} />
+              <div key={index} className="grid grid-cols-1 sm:grid-cols-2 gap-6 my-4">
+                <ArticleImage />
+                <ArticleImage />
               </div>
             );
 
