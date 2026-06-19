@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import glassImg from "@/assets/glass.png";
+import glassImg from "@/assets/wellbeing.png";
 import PlayButton from "@/components/perspectives/PlayButton";
 
 // TODO: Replace static placeholder data with a Prisma query for Posts where
@@ -55,25 +55,24 @@ function ArrowUpRight() {
 export default function PerspectivesSection() {
   return (
     <section className="bg-white py-20 px-5 md:px-10 lg:px-20">
-      <div className="max-w-6xl mx-auto">
+      <div className="mx-auto">
         {/* Header row */}
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-5 mb-3">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-dark1 leading-snug max-w-sm">
+          <h2 className="text-2xl md:text-3xl lg:text-[48px] font-bold text-dark2 leading-tight max-w-[750px]">
             Perspectives on Continuity, Family, and Legacy
           </h2>
           <div className="sm:pt-2 shrink-0">
             <Link
               href="/perspectives"
-              className="inline-flex items-center gap-2 border border-yellow text-yellow text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-yellow/5 transition-colors"
+              className="inline-flex items-center gap-2 border border-yellow text-yellow text-sm font-medium px-5 py-2.5 rounded-sm hover:bg-yellow/90 hover:text-white/90 transition-colors"
             >
               See more
             </Link>
           </div>
         </div>
 
-        <p className="text-neutral text-sm leading-relaxed mb-10">
-          Explore ideas, conversations, and perspectives that matter for
-          families built to last.
+        <p className="text-dark1 text-sm md:text-[18px] lg:text-[22px] leading-relaxed mb-10">
+        Explore selected videos, conversations, and perspectives from the Family Office.
         </p>
 
         {/* Cards */}
@@ -97,13 +96,13 @@ export default function PerspectivesSection() {
               </div>
 
               {/* Byline + duration */}
-              <p className="text-xs text-neutral mb-2">
+              <p className="text-xs md:text-[14px] text-yellow mb-2">
                 {item.author} &nbsp;·&nbsp; {item.date} &nbsp;·&nbsp;{" "}
                 {item.duration}
               </p>
 
               {/* Title with arrow icon */}
-              <h3 className="text-dark1 font-medium text-sm leading-snug group-hover:text-yellow transition-colors flex items-start gap-1.5">
+              <h3 className="text-dark2 font-semibold text-[16px] md:text-[20px] lg:text-[24px] leading-tight group-hover:text-yellow transition-colors flex items-start gap-1.5">
                 <span>{item.title}</span>
                 <ArrowUpRight />
               </h3>

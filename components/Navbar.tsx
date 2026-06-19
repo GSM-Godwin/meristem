@@ -36,7 +36,7 @@ export default function Navbar() {
           >
             <span className={`block w-6 h-0.5 bg-yellow rounded transition-transform duration-300 pointer-events-none ${mobileOpen ? "translate-y-1.75 rotate-45" : ""}`} />
             <span className={`block w-6 h-0.5 bg-yellow rounded transition-opacity duration-300 pointer-events-none ${mobileOpen ? "opacity-0" : ""}`} />
-            <span className={`block w-6 h-0.5 bg-yellow rounded transition-transform duration-300 pointer-events-none ${mobileOpen ? "translate-y-[1.75 -rotate-45" : ""}`} />
+            <span className={`block w-6 h-0.5 bg-yellow rounded transition-transform duration-300 pointer-events-none ${mobileOpen ? "-translate-y-1.75 -rotate-45" : ""}`} />
           </button>
 
         </div>
@@ -95,7 +95,7 @@ export default function Navbar() {
       </header>
 
       {/* Spacer — pushes content below the fixed navbar */}
-      <div className="h-32 md:h-32" />
+      <div className="h-[88px] md:h-32" />
     </>
   );
 }
