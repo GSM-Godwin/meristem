@@ -45,12 +45,12 @@ function SubscribeForm() {
         placeholder="Enter your email"
         required
         disabled={status === "loading" || status === "ok"}
-        className="flex-1 px-4 py-3 text-sm border border-light2 rounded-lg outline-none focus:border-yellow placeholder:text-light3 disabled:opacity-60"
+        className="flex-1 px-4 py-3 text-sm md:text-base border border-light2 rounded-lg outline-none focus:border-yellow placeholder:text-neutral disabled:opacity-60 text-neutral"
       />
       <button
         type="submit"
         disabled={status === "loading" || status === "ok"}
-        className="px-6 py-3 bg-yellow text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity disabled:opacity-60 whitespace-nowrap"
+        className="px-6 py-3 bg-yellow text-light1 text-sm font-medium rounded-lg hover:opacity-90 transition-opacity disabled:opacity-60 whitespace-nowrap border-light2 cursor-pointer"
       >
         {status === "loading" ? "Subscribing…" : "Subscribe"}
       </button>
@@ -76,10 +76,10 @@ function SectionHeader({
 }) {
   return (
     <div className="flex items-center justify-between mb-8">
-      <h2 className="text-xl font-semibold text-dark1">{title}</h2>
+      <h2 className="text-xl md:text-[20px] lg:text-[24px] font-semibold  text-dark1">{title}</h2>
       <Link
         href={seeMoreHref}
-        className="text-sm font-medium text-yellow hover:opacity-80 transition-opacity whitespace-nowrap"
+        className="text-sm  md:text-[16px] font-medium text-yellow hover:opacity-80 transition-opacity whitespace-nowrap"
       >
         See more
       </Link>
@@ -94,12 +94,12 @@ const hubPerspectives = perspectives.slice(0, 6);
 export default function InsightsContent() {
   return (
     <div className="bg-white">
-      <section className="px-5 md:px-10 lg:px-20 pt-14 pb-12">
+      <section className="px-5 md:px-10 lg:px-20 py-24">
         <div className="max-w-6xl mx-auto flex flex-col items-center text-center">
-          <h1 className="text-4xl md:text-5xl font-semibold text-dark1 mb-5">
+          <h1 className="text-4xl md:text-5xl lg:text-[58px] font-semibold text-dark2 mb-6">
             Insights
           </h1>
-          <p className="text-base md:text-lg text-neutral leading-relaxed max-w-2xl mb-10">
+          <p className="text-base md:text-lg lg:text-[20px] text-neutral leading-tight max-w-188.5 mx-auto mb-10">
             A curated collection of articles, videos, reports, conversations,
             and thought leadership exploring the realities of wealth,
             continuity, family enterprise, and legacy.
@@ -108,8 +108,8 @@ export default function InsightsContent() {
         </div>
       </section>
 
-      <section className="px-5 md:px-10 lg:px-20 py-10 border-t border-light2">
-        <div className="max-w-6xl mx-auto">
+      <section className="px-5 md:px-10 lg:px-20 pb-24">
+        <div className="mx-auto">
           <SectionHeader title="Publications" seeMoreHref="/publications" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {hubPublications.map((pub) => (
@@ -128,8 +128,8 @@ export default function InsightsContent() {
         </div>
       </section>
 
-      <section className="px-5 md:px-10 lg:px-20 py-10 border-t border-light2">
-        <div className="max-w-6xl mx-auto">
+      <section className="px-5 md:px-10 lg:px-20 py-10">
+        <div className="mx-auto">
           <SectionHeader
             title="Thought Leadership"
             seeMoreHref="/insights/all"
@@ -150,8 +150,8 @@ export default function InsightsContent() {
         </div>
       </section>
 
-      <section className="px-5 md:px-10 lg:px-20 py-10 border-t border-light2">
-        <div className="max-w-6xl mx-auto">
+      <section className="px-5 md:px-10 lg:px-20 py-10">
+        <div className="mx-auto">
           <SectionHeader title="Perspectives" seeMoreHref="/perspectives" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-12">
             {hubPerspectives.map((p) => (

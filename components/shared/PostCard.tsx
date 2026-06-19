@@ -61,10 +61,10 @@ export default function PostCard({
       : "text-neutral";
 
   return (
-    <Link href={href} className="group flex flex-col gap-4">
+    <Link href={href} className="group flex flex-col gap-8">
       {/* Thumbnail */}
       <div
-        className="relative w-full aspect-[3/2] overflow-hidden rounded-sm"
+        className="relative w-full h-103.5 aspect-3/2 overflow-hidden rounded-sm"
         style={{ backgroundColor: bgColor }}
       >
         <Image
@@ -77,24 +77,24 @@ export default function PostCard({
       </div>
 
       {/* Card body */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-6">
         {/* Byline */}
-        <p className={`text-sm ${metaColor}`}>
+        <p className={`text-sm font-semibold text-yellow {metaColor}`}>
           {author}&nbsp;&bull;&nbsp;{date}
           {duration ? ` (${duration})` : ""}
         </p>
 
         {/* Title + arrow */}
         <div className="flex items-start justify-between gap-3">
-          <h3 className="text-base font-semibold text-dark1 group-hover:text-yellow transition-colors leading-snug">
+          <h3 className="text-base md:text-[20p] lg:text-[24px] font-semibold text-dark2 group-hover:text-yellow transition-colors leading-snug">
             {title}
           </h3>
-          <ArrowUpRight className="text-dark1 mt-0.5" />
+          <ArrowUpRight className="text-dark2 mt-0.5" />
         </div>
 
         {/* Excerpt */}
         {excerpt && (
-          <p className="text-sm text-neutral leading-relaxed line-clamp-2">
+          <p className="text-sm md:text-[16px] text-neutral leading-tight line-clamp-2">
             {excerpt}
           </p>
         )}
