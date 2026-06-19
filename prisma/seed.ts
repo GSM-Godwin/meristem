@@ -4,7 +4,6 @@ import bcrypt from "bcryptjs";
 const prisma = new PrismaClient();
 
 async function main() {
-  // ── Admin user ────────────────────────────────────────────────────────────
   const passwordHash = await bcrypt.hash("admin1234", 12);
 
   await prisma.admin.upsert({
@@ -19,7 +18,6 @@ async function main() {
 
   console.log("✓ Admin user created — email: admin@meristemfamilyoffice.com  password: admin1234");
 
-  // ── Sample Insight ────────────────────────────────────────────────────────
   const insight = await prisma.post.upsert({
     where: { slug: "simple-vs-comprehensive-will" },
     update: {},
@@ -90,7 +88,6 @@ async function main() {
 
   console.log(`✓ Insight created — slug: ${insight.slug}`);
 
-  // ── Sample Perspective ────────────────────────────────────────────────────
   const perspective = await prisma.post.upsert({
     where: { slug: "podcast-creating-a-better-cx-community" },
     update: {},
@@ -136,7 +133,6 @@ async function main() {
 
   console.log(`✓ Perspective created — slug: ${perspective.slug}`);
 
-  // ── Sample Publication ────────────────────────────────────────────────────
   const publication = await prisma.post.upsert({
     where: { slug: "building-generational-wealth-strategies" },
     update: {},

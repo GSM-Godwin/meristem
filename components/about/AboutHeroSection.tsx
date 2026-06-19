@@ -6,7 +6,6 @@ import aboutHeroBg from "@/assets/abouthero bg.png";
 export default function AboutHeroSection() {
   return (
     <section className="relative min-h-[calc(100vh-8rem)] flex items-center justify-center overflow-hidden">
-      {/* Background — city skyline at sunset */}
       <Image
         src={aboutHeroBg}
         alt=""
@@ -15,10 +14,8 @@ export default function AboutHeroSection() {
         priority
       />
 
-      {/* Dark gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-dark2/55 via-dark2/60 to-dark2/75" />
 
-      {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center text-white px-5 max-w-3xl mx-auto py-16">
         <h1 className="text-4xl sm:text-6xl md:text-7xl font-semibold leading-tight mb-6">
           About Us

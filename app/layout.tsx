@@ -7,11 +7,6 @@ const outfit = Outfit({
   variable: "--font-outfit",
 });
 
-// ─── SEO Metadata ─────────────────────────────────────────────────────────────
-// metadataBase: replace the placeholder URL with the real production domain.
-// og-image.png: place a 1200×630 PNG at public/og-image.png.
-// apple-touch-icon.png: place a 180×180 PNG at public/apple-touch-icon.png.
-
 const description =
   "Meristem Family Office partners with high-net-worth families to preserve, grow, and transfer their wealth — and the values, relationships, and legacy that matter most — across generations.";
 

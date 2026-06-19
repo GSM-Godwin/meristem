@@ -1,9 +1,6 @@
 import { ReactNode } from "react";
 
-/* ── Pillar icons ─────────────────────────────────────────────────────────── */
-
 function ContinuityIcon() {
-  // Two interlocking link rings — "continuity / connection"
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M10.5 17.5 A5 5 0 0 1 10.5 10.5 L14 10.5" />
@@ -14,7 +11,6 @@ function ContinuityIcon() {
 }
 
 function WealthBeyondIcon() {
-  // Tree with roots — wealth that grows and deepens
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <line x1="14" y1="28" x2="14" y2="14" />
@@ -26,7 +22,6 @@ function WealthBeyondIcon() {
 }
 
 function StewardshipIcon() {
-  // Handshake — stewardship / partnership over transactions
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M2 18 L8 12 L12 14 L18 10 L26 18" />
@@ -37,7 +32,6 @@ function StewardshipIcon() {
 }
 
 function PrivacyIcon() {
-  // Shield with a checkmark — privacy & trusted coordination
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M14 2 L4 6 L4 14 C4 19.5 8.5 24.5 14 26 C19.5 24.5 24 19.5 24 14 L24 6 Z" />
@@ -45,8 +39,6 @@ function PrivacyIcon() {
     </svg>
   );
 }
-
-/* ── Data ─────────────────────────────────────────────────────────────────── */
 
 interface Pillar {
   icon: ReactNode;
@@ -81,13 +73,10 @@ const PILLARS: Pillar[] = [
   },
 ];
 
-/* ── Component ────────────────────────────────────────────────────────────── */
-
 export default function WealthApproachSection() {
   return (
     <section className="bg-white py-20 px-5 md:px-10 lg:px-20">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-14 max-w-2xl mx-auto">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-yellow mb-4">
             Our Pillars
@@ -101,14 +90,12 @@ export default function WealthApproachSection() {
           </p>
         </div>
 
-        {/* 2 × 2 card grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {PILLARS.map((pillar) => (
             <div
               key={pillar.title}
               className="bg-primarybg rounded-lg p-8 flex flex-col items-center text-center"
             >
-              {/* Circular icon container */}
               <div className="w-14 h-14 rounded-full bg-yellow/10 flex items-center justify-center text-yellow mb-5 shrink-0">
                 {pillar.icon}
               </div>

@@ -5,7 +5,6 @@ import { useState, useRef } from "react";
 interface ImageUploadProps {
   value: string;
   onChange: (url: string) => void;
-  /** Compact variant for use inside section image blocks */
   compact?: boolean;
 }
 

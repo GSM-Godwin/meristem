@@ -72,14 +72,12 @@ export default function AdminSidebar() {
 
   return (
     <aside className="fixed inset-y-0 left-0 w-60 bg-dark1 flex flex-col z-40">
-      {/* Logo */}
       <div className="flex items-center px-6 h-16 border-b border-white/10 shrink-0">
         <Link href="/admin">
           <Image src={logo} alt="Meristem" height={32} priority />
         </Link>
       </div>
 
-      {/* Nav items */}
       <nav className="flex-1 px-3 py-5 space-y-0.5 overflow-y-auto">
         {NAV_ITEMS.map((item) => {
           const active = isActive(item.href);
@@ -104,7 +102,6 @@ export default function AdminSidebar() {
         })}
       </nav>
 
-      {/* Logout */}
       <div className="px-3 pb-5 border-t border-white/10 pt-4 shrink-0">
         <form action={logoutAction}>
           <button

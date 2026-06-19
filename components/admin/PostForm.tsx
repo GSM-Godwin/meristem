@@ -9,7 +9,6 @@ import type { PostCategory } from "@prisma/client";
 
 interface PostFormProps {
   initialValues: PostFormValues;
-  /** When true the category field is locked (add-new flow from a section page) */
   lockCategory: boolean;
   mode: "create" | "edit";
 }
@@ -37,7 +36,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
     return crypto.randomUUID();
   }
 
-  // ── Section handlers ──────────────────────────────────────────────────────
   function addContentSection() {
     setValues((prev) => ({
       ...prev,
@@ -101,7 +99,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
     }));
   }
 
-  // ── Block handlers (within a CONTENT section) ─────────────────────────────
   function addBlock(sectionKey: string, type: "PARAGRAPH" | "IMAGE") {
     setValues((prev) => ({
       ...prev,
@@ -163,7 +160,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
     e.preventDefault();
     setError(null);
 
-    // Basic required-field validation (server re-validates authoritatively)
     if (!values.title.trim()) return setError("Title is required.");
     if (!values.shortDescription.trim()) return setError("Short description is required.");
     if (!values.featuredImage) return setError("A featured image is required.");
@@ -171,8 +167,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
     if (!values.longDescription.trim()) return setError("Long description is required.");
 
     setSaving(true);
-    // On success the server action redirects, so this promise won't resolve
-    // with a value; only a returned { error } means the save failed.
     const result = await savePostAction(values);
     if (result?.error) {
       setError(result.error);
@@ -189,7 +183,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
       )}
 
       <div className="bg-white rounded-xl border border-light2 p-6 space-y-5">
-        {/* Title */}
         <div>
           <label htmlFor="title" className={labelClass}>
             Title <span className="text-red-500">*</span>
@@ -204,7 +197,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
           />
         </div>
 
-        {/* Short description */}
         <div>
           <label htmlFor="shortDescription" className={labelClass}>
             Short description <span className="text-red-500">*</span>
@@ -219,7 +211,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
           />
         </div>
 
-        {/* Featured image */}
         <div>
           <label className={labelClass}>
             Featured image <span className="text-red-500">*</span>
@@ -233,7 +224,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
           />
         </div>
 
-        {/* Written by */}
         <div>
           <label htmlFor="writtenBy" className={labelClass}>
             Written by <span className="text-red-500">*</span>
@@ -248,7 +238,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
           />
         </div>
 
-        {/* Category */}
         <div>
           <label htmlFor="category" className={labelClass}>
             Category
@@ -279,7 +268,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
           )}
         </div>
 
-        {/* Status + Publish date */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
             <label htmlFor="status" className={labelClass}>
@@ -309,7 +297,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
           </div>
         </div>
 
-        {/* Featured checkbox */}
         <div className="flex items-start gap-3 pt-1">
           <input
             id="featured"
@@ -326,7 +313,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
           </label>
         </div>
 
-        {/* Long description */}
         <div>
           <label htmlFor="longDescription" className={labelClass}>
             Long description <span className="text-red-500">*</span>
@@ -344,7 +330,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
         </div>
       </div>
 
-      {/* ── Page sections ──────────────────────────────────────────────── */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
@@ -372,7 +357,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
                 key={section.key}
                 className="rounded-xl border-l-4 border-yellow border-y border-r border-y-light2 border-r-light2 bg-primarybg p-5 space-y-4"
               >
-                {/* Quote section header */}
                 <div className="flex items-center justify-between gap-3">
                   <span className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-yellow">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -389,7 +373,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
                   </button>
                 </div>
 
-                {/* Quote text */}
                 <div>
                   <label className={labelClass}>
                     Quote text <span className="text-red-500">*</span>
@@ -405,7 +388,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
                   />
                 </div>
 
-                {/* Attribution */}
                 <div>
                   <label className={labelClass}>
                     Attribution <span className="text-light3">(optional)</span>
@@ -429,7 +411,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
               key={section.key}
               className="bg-white rounded-xl border border-light2 p-5 space-y-4"
             >
-              {/* Section header */}
               <div className="flex items-center justify-between gap-3">
                 <span className="text-xs font-medium uppercase tracking-wide text-light3">
                   Section {index + 1} · Content
@@ -443,7 +424,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
                 </button>
               </div>
 
-              {/* Heading */}
               <div>
                 <label className={labelClass}>
                   Heading <span className="text-red-500">*</span>
@@ -457,7 +437,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
                 />
               </div>
 
-              {/* Blocks */}
               {section.blocks.length > 0 && (
                 <div className="space-y-3">
                   {section.blocks.map((block) => (
@@ -500,7 +479,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
                 </div>
               )}
 
-              {/* Add block buttons */}
               <div className="flex items-center gap-2 pt-1">
                 <button
                   type="button"
@@ -521,7 +499,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
           );
         })}
 
-        {/* Add section / quote buttons */}
         <div className="flex items-center gap-3">
           <button
             type="button"
@@ -547,7 +524,6 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
         </div>
       </div>
 
-      {/* Actions */}
       <div className="flex items-center justify-end gap-3">
         <Link
           href={`/admin/${

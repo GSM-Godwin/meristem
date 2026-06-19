@@ -36,7 +36,6 @@ export default function MeristemOfficeSection() {
   return (
     <section className="bg-white py-20 px-5 md:px-10 lg:px-20">
       <div className="max-w-6xl mx-auto">
-        {/* Top — centered heading + subtext */}
         <div className="text-center mb-14 max-w-2xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-semibold text-dark1 mb-5">
             The Meristem Family Office
@@ -48,9 +47,7 @@ export default function MeristemOfficeSection() {
           </p>
         </div>
 
-        {/* Two-column body */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
-          {/* Left — image */}
           <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden">
             <Image
               src={whoWeAre}
@@ -60,7 +57,6 @@ export default function MeristemOfficeSection() {
             />
           </div>
 
-          {/* Right — who we are content */}
           <div>
             <h3 className="text-2xl font-semibold text-dark1 mb-5">
               Who we are
@@ -84,7 +80,6 @@ export default function MeristemOfficeSection() {
               We work with families to help sustain:
             </p>
 
-            {/* 2-column 3-row checklist */}
             <ul className="grid grid-cols-2 gap-x-4 gap-y-3">
               {CHECKLIST.map((item) => (
                 <li key={item} className="flex items-start gap-2.5">

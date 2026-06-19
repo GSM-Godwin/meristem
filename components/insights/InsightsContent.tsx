@@ -7,8 +7,6 @@ import { insights } from "@/lib/data/insights";
 import { perspectives } from "@/lib/data/perspectives";
 import { publications } from "@/lib/data/publications";
 
-// ─── Subscribe form ──────────────────────────────────────────────────────────
-
 function SubscribeForm() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">("idle");
@@ -69,8 +67,6 @@ function SubscribeForm() {
   );
 }
 
-// ─── Section header row ───────────────────────────────────────────────────────
-
 function SectionHeader({
   title,
   seeMoreHref,
@@ -91,18 +87,13 @@ function SectionHeader({
   );
 }
 
-// ─── Slices of placeholder data ───────────────────────────────────────────────
-
 const hubPublications = publications.slice(0, 3);
 const hubInsights = insights.slice(0, 6);
 const hubPerspectives = perspectives.slice(0, 6);
 
-// ─── Main component ───────────────────────────────────────────────────────────
-
 export default function InsightsContent() {
   return (
     <div className="bg-white">
-      {/* ── Hero / header ─────────────────────────────────────────────── */}
       <section className="px-5 md:px-10 lg:px-20 pt-14 pb-12">
         <div className="max-w-6xl mx-auto flex flex-col items-center text-center">
           <h1 className="text-4xl md:text-5xl font-semibold text-dark1 mb-5">
@@ -117,7 +108,6 @@ export default function InsightsContent() {
         </div>
       </section>
 
-      {/* ── Publications section ───────────────────────────────────────── */}
       <section className="px-5 md:px-10 lg:px-20 py-10 border-t border-light2">
         <div className="max-w-6xl mx-auto">
           <SectionHeader title="Publications" seeMoreHref="/publications" />
@@ -138,7 +128,6 @@ export default function InsightsContent() {
         </div>
       </section>
 
-      {/* ── Thought Leadership section ─────────────────────────────────── */}
       <section className="px-5 md:px-10 lg:px-20 py-10 border-t border-light2">
         <div className="max-w-6xl mx-auto">
           <SectionHeader
@@ -161,7 +150,6 @@ export default function InsightsContent() {
         </div>
       </section>
 
-      {/* ── Perspectives section ───────────────────────────────────────── */}
       <section className="px-5 md:px-10 lg:px-20 py-10 border-t border-light2">
         <div className="max-w-6xl mx-auto">
           <SectionHeader title="Perspectives" seeMoreHref="/perspectives" />

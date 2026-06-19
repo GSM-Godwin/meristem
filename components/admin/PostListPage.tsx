@@ -34,7 +34,6 @@ export default async function PostListPage({ category, title }: Props) {
       <AdminTopbar title={title} />
 
       <main className="flex-1 overflow-y-auto p-6">
-        {/* Header row */}
         <div className="flex items-center justify-between mb-6">
           <p className="text-sm text-neutral">
             {posts.length} {posts.length === 1 ? CATEGORY_LABEL[category] : title.toLowerCase()}
@@ -51,7 +50,6 @@ export default async function PostListPage({ category, title }: Props) {
           </Link>
         </div>
 
-        {/* Table */}
         {posts.length === 0 ? (
           <div className="bg-white rounded-xl border border-light2 px-6 py-16 text-center">
             <p className="text-neutral text-sm mb-4">No {title.toLowerCase()} yet.</p>
@@ -85,7 +83,6 @@ export default async function PostListPage({ category, title }: Props) {
               <tbody className="divide-y divide-light2">
                 {posts.map((post) => (
                   <tr key={post.id} className="hover:bg-light1/60 transition-colors group">
-                    {/* Title */}
                     <td className="px-5 py-4">
                       <span className="font-medium text-dark1 group-hover:text-yellow transition-colors line-clamp-2">
                         {post.title}
@@ -95,7 +92,6 @@ export default async function PostListPage({ category, title }: Props) {
                       </span>
                     </td>
 
-                    {/* Status badge */}
                     <td className="px-5 py-4 hidden sm:table-cell">
                       <span
                         className={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full ${
@@ -113,7 +109,6 @@ export default async function PostListPage({ category, title }: Props) {
                       </span>
                     </td>
 
-                    {/* Date */}
                     <td className="px-5 py-4 text-neutral hidden md:table-cell">
                       {new Date(post.publishDate).toLocaleDateString("en-GB", {
                         day: "numeric",
@@ -122,7 +117,6 @@ export default async function PostListPage({ category, title }: Props) {
                       })}
                     </td>
 
-                    {/* Featured */}
                     <td className="px-5 py-4 hidden md:table-cell">
                       {post.featured ? (
                         <span className="text-xs font-medium text-yellow">Featured</span>
@@ -131,7 +125,6 @@ export default async function PostListPage({ category, title }: Props) {
                       )}
                     </td>
 
-                    {/* Actions */}
                     <td className="px-5 py-4">
                       <div className="flex items-center justify-end gap-4">
                         <Link

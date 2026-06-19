@@ -25,7 +25,6 @@ export default function PerspectivesContent() {
 
   return (
     <div className="bg-white">
-      {/* Header */}
       <section className="px-5 md:px-10 lg:px-20 pt-14 pb-10">
         <div className="max-w-6xl mx-auto flex flex-col items-center text-center">
           <h1 className="text-4xl md:text-5xl font-semibold text-dark1 mb-5">
@@ -39,7 +38,6 @@ export default function PerspectivesContent() {
         </div>
       </section>
 
-      {/* Listing */}
       <section className="px-5 md:px-10 lg:px-20 pb-20">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-xl font-semibold text-dark1 mb-10">

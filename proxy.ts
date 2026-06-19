@@ -12,27 +12,22 @@ function getSecret() {
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Only handle /admin routes
   if (!pathname.startsWith("/admin")) {
     return NextResponse.next();
   }
 
-  // Always allow the login page through
   if (pathname === "/admin/login") {
-    // If already authenticated, redirect to dashboard
     const token = request.cookies.get(COOKIE_NAME)?.value;
     if (token) {
       try {
         await jwtVerify(token, getSecret());
         return NextResponse.redirect(new URL("/admin", request.url));
       } catch {
-        // Invalid token — let them see the login page
       }
     }
     return NextResponse.next();
   }
 
-  // All other /admin routes require a valid session
   const token = request.cookies.get(COOKIE_NAME)?.value;
 
   if (!token) {
