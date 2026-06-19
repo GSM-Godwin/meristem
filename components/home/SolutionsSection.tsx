@@ -55,7 +55,6 @@ export default function SolutionsSection() {
   return (
     <section id="solutions" className="bg-dark2 py-20 px-5 md:px-10 lg:px-20">
       <div className="mx-auto">
-        {/* Header */}
         <div className="text-center mb-14 max-w-2xl mx-auto">
           <p className="text-xs leading-[16px] font-semibold uppercase text-[#C3AA6A] mb-5">
             How We Support Families
@@ -68,17 +67,13 @@ export default function SolutionsSection() {
           </p>
         </div>
 
-        {/* Cards grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[26px]">
           {SOLUTIONS.map((solution) => (
-            /* Outer box — provides the 5px gap between edge and inner border */
             <div
               key={solution.title}
               className="bg-dark1 p-[15px] rounded-md max-w-[388px] mx-auto w-full group"
             >
-              {/* Inner border */}
               <div className="border-2 border-[#C3AA6A] rounded-md overflow-hidden flex flex-col h-full">
-                {/* Card image */}
                 <div className="relative h-48 overflow-hidden shrink-0">
                   <Image
                     src={solution.image}
@@ -88,7 +83,6 @@ export default function SolutionsSection() {
                   />
                 </div>
 
-                {/* Card body */}
                 <div className="bg-dark1 py-5 px-3 flex-1">
                   <h3 className="font-semibold text-[32px] leading-[40px] text-white mb-3">
                     {solution.title}

@@ -3,24 +3,21 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import logo from "@/assets/logo.png"; // ← your logo path
+import logo from "@/assets/logo.png";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <>
-      {/* ── STICKY NAVBAR ── */}
       <header className="fixed top-0 left-0 right-0 z-50">
 
-        {/* TOP BAR */}
         <div className="flex items-center justify-between px-5 md:px-10 lg:px-20 h-22 bg-primarybg">
 
           <Link href="/">
             <Image src={logo} alt="Meristem Family Office" height={48} priority />
           </Link>
 
-          {/* Contact Us — hidden on mobile */}
           <Link
             href="/contact"
             className="hidden md:block px-5 py-2 text-sm border border-yellow bg-white text-[#6B3A1F] hover:bg-[#6B3A1F] hover:text-white transition-colors duration-200"
@@ -28,7 +25,6 @@ export default function Navbar() {
             Contact Us
           </Link>
 
-          {/* Hamburger — visible on mobile only */}
           <button
             className="md:hidden flex flex-col gap-1.25 p-3 z-51 relative touch-manipulation"
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -41,7 +37,6 @@ export default function Navbar() {
 
         </div>
 
-        {/* BOTTOM BAR — desktop only */}
         <nav className="hidden md:flex items-center justify-end px-5 md:px-10 lg:px-20 h-12 bg-yellow gap-2">
           <Link href="/about" className="px-5 h-12 flex items-center text-white text-[16px] hover:opacity-75 transition-opacity">
             About Us
@@ -54,7 +49,6 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        {/* MOBILE MENU */}
         {mobileOpen && (
           <nav className="md:hidden flex flex-col bg-[#F8F3EC] border-t border-[#6B3A1F]/10">
             <Link
@@ -79,7 +73,6 @@ export default function Navbar() {
               Perspectives
             </Link>
 
-            {/* Contact Us inside mobile menu */}
             <div className="p-6">
               <Link
                 href="/contact"
@@ -94,7 +87,6 @@ export default function Navbar() {
 
       </header>
 
-      {/* Spacer — pushes content below the fixed navbar */}
       <div className="h-[88px] md:h-32" />
     </>
   );

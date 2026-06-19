@@ -5,7 +5,6 @@ import herobg from "@/assets/herobg.png";
 export default function HeroSection() {
   return (
     <section className="relative min-h-[calc(100vh-8rem)] flex items-center justify-center overflow-hidden">
-      {/* Background image */}
       <Image
         src={herobg}
         alt=""
@@ -14,8 +13,6 @@ export default function HeroSection() {
         priority
       />
 
-
-      {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center text-white px-5 max-w-4xl mx-auto py-16">
         <h1 className="text-[42px] leading-[48px] sm:text-[60px] sm:leading-[66px] lg:text-[80px] lg:leading-[86px] font-bold text-white mb-6">
           Preserving more

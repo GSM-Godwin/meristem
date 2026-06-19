@@ -56,7 +56,6 @@ export default function PerspectivesSection() {
   return (
     <section className="bg-white py-20 px-5 md:px-10 lg:px-20">
       <div className="mx-auto">
-        {/* Header row */}
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-5 mb-3">
           <h2 className="text-2xl md:text-3xl lg:text-[48px] font-bold text-dark2 leading-tight max-w-[750px]">
             Perspectives on Continuity, Family, and Legacy
@@ -72,10 +71,9 @@ export default function PerspectivesSection() {
         </div>
 
         <p className="text-dark1 text-sm md:text-[18px] lg:text-[22px] leading-relaxed mb-10">
-        Explore selected videos, conversations, and perspectives from the Family Office.
+          Explore selected videos, conversations, and perspectives from the Family Office.
         </p>
 
-        {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {PERSPECTIVES.map((item) => (
             <Link
@@ -83,7 +81,6 @@ export default function PerspectivesSection() {
               href={`/perspectives/${item.slug}`}
               className="group block"
             >
-              {/* Thumbnail with play button overlay */}
               <div className="relative rounded-lg overflow-hidden aspect-video mb-4">
                 <Image
                   src={glassImg}
@@ -91,17 +88,14 @@ export default function PerspectivesSection() {
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                {/* Circular play button centered over image */}
                 <PlayButton />
               </div>
 
-              {/* Byline + duration */}
               <p className="text-xs md:text-[14px] text-yellow mb-2">
                 {item.author} &nbsp;·&nbsp; {item.date} &nbsp;·&nbsp;{" "}
                 {item.duration}
               </p>
 
-              {/* Title with arrow icon */}
               <h3 className="text-dark2 font-semibold text-[16px] md:text-[20px] lg:text-[24px] leading-tight group-hover:text-yellow transition-colors flex items-start gap-1.5">
                 <span>{item.title}</span>
                 <ArrowUpRight />
