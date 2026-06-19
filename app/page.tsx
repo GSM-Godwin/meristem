@@ -10,6 +10,7 @@ export default function Home() {
     <>
       <Navbar />
       <main>
+        <div />
         <HeroSection />
         <PurposeSection />
         <SolutionsSection />
