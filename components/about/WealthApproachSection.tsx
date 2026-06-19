@@ -51,25 +51,25 @@ const PILLARS: Pillar[] = [
     icon: <ContinuityIcon />,
     title: "Continuity Matters",
     description:
-      "Building strategies that connect today's decisions to tomorrow's outcomes — so that family wealth endures beyond a single generation.",
+      "Wealth rarely disappears suddenly. Continuity weakens gradually through lack of structure, preparedness, alignment, and stewardship. We help families build resilient systems that support continuity and stability beyond the founder.",
   },
   {
     icon: <WealthBeyondIcon />,
     title: "Wealth is More Than Financial Capital",
     description:
-      "True family wealth encompasses human capital, intellectual capital, values, relationships, and legacy — not just financial assets.",
+      "Financial capital alone does not sustain families across generations. Human capital, intellectual capital, values, governance and reputational capital play critical roles in preserving continuity and determining if financial wealth will last.",
   },
   {
     icon: <StewardshipIcon />,
     title: "Stewardship Over Transactions",
     description:
-      "We prioritise long-term stewardship relationships over transactional advice, aligning our success with the success of the families we serve.",
+      "Our work is built around long-term relationships rather than isolated transactions. We work alongside families thoughtfully and discreetly, helping them navigate continuity, complexity, and long-term decision-making with greater clarity and confidence.",
   },
   {
     icon: <PrivacyIcon />,
     title: "Privacy & Trusted Coordination",
     description:
-      "We operate with the highest discretion, acting as a trusted coordinator across all advisors and institutions serving your family.",
+      "As family structures and assets become more complex, families often require careful coordination across multiple priorities, advisors, and decisions. We provide discreet oversight and trusted coordination so families can operate with greater clarity.",
   },
 ];
 
@@ -77,16 +77,15 @@ export default function WealthApproachSection() {
   return (
     <section className="bg-white py-20 px-5 md:px-10 lg:px-20">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-14 max-w-2xl mx-auto">
+        <div className="text-center mb-16 mx-auto">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-yellow mb-4">
             Our Pillars
           </p>
-          <h2 className="text-3xl md:text-4xl font-semibold text-dark1 mb-5">
+          <h2 className="text-3xl md:text-4xl lg:text-[48px] font-bold text-dark2 mb-5">
             Our Complete Wealth Approach
           </h2>
-          <p className="text-neutral text-base leading-relaxed">
-            We take a whole-family view, recognising that financial health and
-            family health are inseparable.
+          <p className="max-w-196.5 text-dark2 text-base md:text-[18px] lg:text-[22px] mx-auto leading-relaxed">
+            We believe that long-term family success depends on preserving more than financial capital alone. Sustainable continuity requires intentional stewardship of the structures, relationships, values, knowledge, and capabilities that support families across generations.
           </p>
         </div>
 
@@ -94,17 +93,17 @@ export default function WealthApproachSection() {
           {PILLARS.map((pillar) => (
             <div
               key={pillar.title}
-              className="bg-primarybg rounded-lg p-8 flex flex-col items-center text-center"
+              className="bg-primarybg rounded-xl px-6 py-8 flex flex-col items-center text-center"
             >
-              <div className="w-14 h-14 rounded-full bg-yellow/10 flex items-center justify-center text-yellow mb-5 shrink-0">
+              <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-yellow mb-4 shrink-0">
                 {pillar.icon}
               </div>
 
-              <h3 className="font-semibold text-dark1 text-base mb-3">
+              <h3 className="font-semibold text-dark2 text-[16px] md:text-[18px] lg:text-[20px] mb-2">
                 {pillar.title}
               </h3>
 
-              <p className="text-neutral text-sm leading-relaxed">
+              <p className="text-dark1 text-sm md:text-[14px] lg:text-[16px] leading-relaxed">
                 {pillar.description}
               </p>
             </div>

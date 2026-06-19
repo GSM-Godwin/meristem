@@ -35,20 +35,18 @@ const CHECKLIST = [
 export default function MeristemOfficeSection() {
   return (
     <section className="bg-white py-20 px-5 md:px-10 lg:px-20">
-      <div className="max-w-6xl mx-auto">
+      <div className="mx-auto">
         <div className="text-center mb-14 max-w-2xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-semibold text-dark1 mb-5">
+          <h2 className="text-3xl md:text-4xl lg:text-[48px] font-bold text-dark2 mb-5">
             The Meristem Family Office
           </h2>
-          <p className="text-neutral text-base leading-relaxed">
-            A dedicated team of multi-disciplinary advisors — bringing together
-            expertise in finance, law, governance, and behavioural science to
-            serve the whole family across generations.
+          <p className="text-dark1 text-base md:text-[18px] lg:text-[22px] leading-tight">
+            Preserving continuity often requires intentional structure, thoughtful coordination, and long-term planning across generations.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
-          <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden">
+          <div className="relative w-full aspect-4/3 rounded-sm overflow-hidden">
             <Image
               src={whoWeAre}
               alt="Meristem Family Office team meeting"
@@ -58,25 +56,19 @@ export default function MeristemOfficeSection() {
           </div>
 
           <div>
-            <h3 className="text-2xl font-semibold text-dark1 mb-5">
+            <h3 className="text-[20px] md:text-[24px] lg:text-[32px] font-medium text-dark2 mb-3">
               Who we are
             </h3>
 
-            <p className="text-neutral text-base leading-relaxed mb-4">
-              Meristem Family Office is a multi-family office serving
-              high-net-worth and ultra-high-net-worth families in Africa and
-              beyond. We act as a trusted partner and strategic advisor, helping
-              families protect, grow, and transfer what matters most to them.
+            <p className="text-dark1 text-[12px] md:text-base leading-relaxed mb-4">
+              Meristem Family Office was established to help families preserve and sustain wealth across generations through a holistic complete wealth approach..
             </p>
 
-            <p className="text-neutral text-base leading-relaxed mb-6">
-              Unlike traditional wealth managers, we take a whole-family view —
-              recognising that the health of a family&rsquo;s wealth is
-              inseparable from the health of its relationships, governance, and
-              values.
+            <p className="text-dark1 text-[12px] md:text-base leading-relaxed mb-6">
+              Our focus extends beyond financial assets alone. We support families in navigating continuity, governance, succession, stewardship, and long-term preservation in a way that protects both tangible and intangible wealth.
             </p>
 
-            <p className="text-dark1 text-sm font-semibold mb-4">
+            <p className="text-dark1 text-[12px] md:text-base mb-4">
               We work with families to help sustain:
             </p>
 
@@ -84,7 +76,7 @@ export default function MeristemOfficeSection() {
               {CHECKLIST.map((item) => (
                 <li key={item} className="flex items-start gap-2.5">
                   <CheckIcon />
-                  <span className="text-sm text-neutral leading-snug">{item}</span>
+                  <span className="text-sm md:text-base text-dark1 leading-tight">{item}</span>
                 </li>
               ))}
             </ul>
