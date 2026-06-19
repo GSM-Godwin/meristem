@@ -7,7 +7,7 @@ export default function PurposeSection() {
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-5">
             Purpose
           </p>
-          <h2 className="font-[family-name:var(--font-playfair)] text-3xl md:text-4xl lg:text-5xl font-semibold text-dark1 leading-snug">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-dark1 leading-snug">
             Families often build wealth faster than they build continuity
           </h2>
         </div>

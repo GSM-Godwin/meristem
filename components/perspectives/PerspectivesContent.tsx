@@ -28,7 +28,7 @@ export default function PerspectivesContent() {
       {/* Header */}
       <section className="px-5 md:px-10 lg:px-20 pt-14 pb-10">
         <div className="max-w-6xl mx-auto flex flex-col items-center text-center">
-          <h1 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl font-semibold text-dark1 mb-5">
+          <h1 className="text-4xl md:text-5xl font-semibold text-dark1 mb-5">
             Perspectives
           </h1>
           <p className="text-base md:text-lg text-neutral leading-relaxed max-w-2xl">

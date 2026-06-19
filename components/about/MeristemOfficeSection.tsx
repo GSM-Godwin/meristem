@@ -38,7 +38,7 @@ export default function MeristemOfficeSection() {
       <div className="max-w-6xl mx-auto">
         {/* Top — centered heading + subtext */}
         <div className="text-center mb-14 max-w-2xl mx-auto">
-          <h2 className="font-[family-name:var(--font-playfair)] text-3xl md:text-4xl font-semibold text-dark1 mb-5">
+          <h2 className="text-3xl md:text-4xl font-semibold text-dark1 mb-5">
             The Meristem Family Office
           </h2>
           <p className="text-neutral text-base leading-relaxed">
@@ -62,7 +62,7 @@ export default function MeristemOfficeSection() {
 
           {/* Right — who we are content */}
           <div>
-            <h3 className="font-[family-name:var(--font-playfair)] text-2xl font-semibold text-dark1 mb-5">
+            <h3 className="text-2xl font-semibold text-dark1 mb-5">
               Who we are
             </h3>
 

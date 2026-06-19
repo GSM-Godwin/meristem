@@ -74,7 +74,7 @@ export default function ArticleTemplate({
 
           {/* Title + intro */}
           <header className="max-w-[720px] mb-10">
-            <h1 className="font-[family-name:var(--font-playfair)] text-3xl md:text-5xl font-semibold text-dark1 leading-tight tracking-[-0.02em] mb-5">
+            <h1 className="text-3xl md:text-5xl font-semibold text-dark1 leading-tight tracking-[-0.02em] mb-5">
               {title}
             </h1>
             <p className="text-lg text-neutral leading-[30px]">{intro}</p>

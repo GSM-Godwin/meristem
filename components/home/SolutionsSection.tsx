@@ -60,7 +60,7 @@ export default function SolutionsSection() {
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-5">
             How We Support Families
           </p>
-          <h2 className="font-[family-name:var(--font-playfair)] text-3xl md:text-4xl lg:text-5xl font-semibold text-white leading-snug mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white leading-snug mb-4">
             Solutions for now and generations to come
           </h2>
           <p className="text-white/55 text-base leading-relaxed">

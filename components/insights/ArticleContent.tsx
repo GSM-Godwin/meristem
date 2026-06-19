@@ -63,7 +63,7 @@ export default function ArticleContent({ blocks }: { blocks: ContentBlock[] }) {
                   <div className="flex-1 h-px bg-[#E9EAEB]" />
                 </div>
                 <blockquote>
-                  <p className="font-[family-name:var(--font-playfair)] text-[36px] font-medium text-[#181D27] leading-[44px] tracking-[-0.02em] text-center">
+                  <p className="text-[36px] font-medium text-[#181D27] leading-[44px] tracking-[-0.02em] text-center">
                     {block.quote}
                   </p>
                 </blockquote>

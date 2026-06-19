@@ -6,7 +6,7 @@ export default function OurPerspectiveSection() {
           Our Perspective
         </p>
 
-        <blockquote className="font-[family-name:var(--font-playfair)] text-2xl md:text-3xl lg:text-4xl font-semibold text-dark1 leading-snug">
+        <blockquote className="text-2xl md:text-3xl lg:text-4xl font-semibold text-dark1 leading-snug">
           Many families successfully create wealth. Far fewer successfully
           preserve continuity across generations. Our work is centered on
           helping families bridge that gap.

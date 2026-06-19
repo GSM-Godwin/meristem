@@ -40,7 +40,7 @@ export default async function InquiryDetailPage({
             {/* Header */}
             <div className="px-6 py-5 flex items-start justify-between gap-4">
               <div>
-                <h2 className="font-[family-name:var(--font-playfair)] text-xl font-semibold text-dark1">
+                <h2 className="text-xl font-semibold text-dark1">
                   {inquiry.name}
                 </h2>
                 <a

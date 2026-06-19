@@ -20,7 +20,7 @@ export default function AboutHeroSection() {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center text-white px-5 max-w-3xl mx-auto py-16">
-        <h1 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-6xl md:text-7xl font-semibold leading-tight mb-6">
+        <h1 className="text-4xl sm:text-6xl md:text-7xl font-semibold leading-tight mb-6">
           About Us
         </h1>
         <p className="text-base md:text-lg text-white/80 max-w-xl leading-relaxed">

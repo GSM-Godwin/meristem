@@ -58,7 +58,7 @@ export default function PerspectivesSection() {
       <div className="max-w-6xl mx-auto">
         {/* Header row */}
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-5 mb-3">
-          <h2 className="font-[family-name:var(--font-playfair)] text-2xl md:text-3xl lg:text-4xl font-semibold text-dark1 leading-snug max-w-sm">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-dark1 leading-snug max-w-sm">
             Perspectives on Continuity, Family, and Legacy
           </h2>
           <div className="sm:pt-2 shrink-0">

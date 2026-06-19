@@ -348,7 +348,7 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="font-[family-name:var(--font-playfair)] text-lg font-semibold text-dark1">
+            <h2 className="text-lg font-semibold text-dark1">
               Page sections
             </h2>
             <p className="text-xs text-neutral mt-0.5">

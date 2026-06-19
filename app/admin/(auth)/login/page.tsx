@@ -18,7 +18,7 @@ export default function LoginPage() {
 
         <div className="bg-white rounded-2xl shadow-sm border border-light2 px-8 py-10">
           <h1
-            className="font-[family-name:var(--font-playfair)] text-2xl font-semibold text-dark1 mb-1"
+            className="text-2xl font-semibold text-dark1 mb-1"
           >
             Admin sign in
           </h1>

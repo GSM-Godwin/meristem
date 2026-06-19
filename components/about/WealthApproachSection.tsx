@@ -92,7 +92,7 @@ export default function WealthApproachSection() {
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-yellow mb-4">
             Our Pillars
           </p>
-          <h2 className="font-[family-name:var(--font-playfair)] text-3xl md:text-4xl font-semibold text-dark1 mb-5">
+          <h2 className="text-3xl md:text-4xl font-semibold text-dark1 mb-5">
             Our Complete Wealth Approach
           </h2>
           <p className="text-neutral text-base leading-relaxed">

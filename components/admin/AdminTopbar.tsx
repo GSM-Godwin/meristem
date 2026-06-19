@@ -12,7 +12,7 @@ export default async function AdminTopbar({ title }: AdminTopbarProps) {
 
   return (
     <header className="h-16 bg-white border-b border-light2 flex items-center justify-between px-6 shrink-0">
-      <h1 className="font-[family-name:var(--font-playfair)] text-xl font-semibold text-dark1">
+      <h1 className="text-xl font-semibold text-dark1">
         {title}
       </h1>
 

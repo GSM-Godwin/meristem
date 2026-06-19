@@ -19,7 +19,7 @@ export default function InsightArticle({ insight, shareUrl }: InsightArticleProp
       <article className="px-5 md:px-10 lg:px-20 pt-16 pb-20 bg-white">
         <div className="max-w-360 mx-auto">
           <header className="max-w-[720px] mx-auto mb-10">
-            <h1 className="font-[family-name:var(--font-playfair)] text-[48px] font-semibold text-[#181D27] leading-[1.2] tracking-[-0.02em] mb-5">
+            <h1 className="text-[48px] font-semibold text-[#181D27] leading-[1.2] tracking-[-0.02em] mb-5">
               {insight.title}
             </h1>
             <p className="text-xl text-[#535862] leading-[30px]">
