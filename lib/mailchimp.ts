@@ -1,17 +1,4 @@
-/**
- * Mailchimp Campaigns API — sends the "new Insight published" newsletter to the
- * existing audience (the same list the public subscribe form feeds).
- *
- * Reuses the env vars already used by `app/api/subscribe/route.ts`
- * (MAILCHIMP_API_KEY / MAILCHIMP_AUDIENCE_ID / MAILCHIMP_SERVER_PREFIX) — no new
- * vars. Degrades gracefully: if any are missing it warns and no-ops so a publish
- * never fails because Mailchimp isn't configured. Never throws.
- */
 
-// Campaign sender identity. Mailchimp requires a from_name + reply_to on every
-// campaign; there is no env var for these, so they live here as constants.
-// NOTE: for sends to actually deliver, this reply_to's domain must be
-// authenticated in the Mailchimp account.
 const FROM_NAME = "Meristem Family Office";
 const REPLY_TO = "familyoffice@meristemng.com";
 
@@ -62,7 +49,6 @@ export async function sendInsightCampaign(data: InsightCampaignData): Promise<bo
   const headers = { Authorization: auth, "Content-Type": "application/json" };
 
   try {
-    // 1. Create the campaign.
     const createRes = await fetch(`${base}/campaigns`, {
       method: "POST",
       headers,
@@ -90,7 +76,6 @@ export async function sendInsightCampaign(data: InsightCampaignData): Promise<bo
       return false;
     }
 
-    // 2. Set the campaign HTML content.
     const contentRes = await fetch(`${base}/campaigns/${campaignId}/content`, {
       method: "PUT",
       headers,
@@ -102,7 +87,6 @@ export async function sendInsightCampaign(data: InsightCampaignData): Promise<bo
       return false;
     }
 
-    // 3. Send it. A successful send returns 204 No Content.
     const sendRes = await fetch(`${base}/campaigns/${campaignId}/actions/send`, {
       method: "POST",
       headers,

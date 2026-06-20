@@ -9,23 +9,15 @@ export interface PostDetail {
   id: string;
   slug: string;
   title: string;
-  /** Lead paragraph shown above the cover image (maps to `shortDescription`). */
   intro: string;
   author: string;
   date: string;
   coverSrc: string;
   fileUrl: string | null;
   comingSoon: boolean;
-  /** Flattened, ordered blocks the shared `ArticleContent` renderer consumes. */
   content: ContentBlock[];
 }
 
-/**
- * Loads a single PUBLISHED post by category + slug and flattens its
- * sections/blocks into the `ContentBlock[]` shape the public article
- * template already renders. Memoized per-request so `generateMetadata`
- * and the page component share one query. Returns `null` when not found.
- */
 export const getPostDetailBySlug = cache(
   async (category: PostCategory, slug: string): Promise<PostDetail | null> => {
     await connection();
@@ -44,8 +36,6 @@ export const getPostDetailBySlug = cache(
 
     const content: ContentBlock[] = [];
 
-    // Long description renders first, above the section body (matches the
-    // existing hardcoded article layout).
     if (post.longDescription.trim()) {
       content.push({ type: "long-description", text: post.longDescription });
     }
@@ -60,7 +50,6 @@ export const getPostDetailBySlug = cache(
         continue;
       }
 
-      // CONTENT section: optional heading, then ordered blocks.
       if (section.heading?.trim()) {
         content.push({ type: "heading", text: section.heading });
       }

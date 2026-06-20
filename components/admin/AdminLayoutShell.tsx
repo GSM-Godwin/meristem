@@ -22,7 +22,6 @@ export default function AdminLayoutShell({
       <div className="flex h-screen overflow-hidden bg-light1">
         <AdminSidebar />
 
-        {/* Mobile overlay — tapping it closes the drawer */}
         {isOpen && (
           <div
             role="presentation"
@@ -32,7 +31,6 @@ export default function AdminLayoutShell({
           />
         )}
 
-        {/* Main content — full-width on mobile, offset on desktop */}
         <div className="flex-1 flex flex-col overflow-hidden min-w-0 lg:ml-60">
           {children}
         </div>

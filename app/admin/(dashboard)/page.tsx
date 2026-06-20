@@ -60,9 +60,7 @@ export default async function AdminDashboard() {
           ))}
         </div>
 
-        {/* Recent activity */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Recent posts */}
           <div className="bg-white rounded-xl border border-light2">
             <div className="px-5 py-4 border-b border-light2 flex items-center justify-between">
               <h2 className="font-medium text-dark1 text-sm">Recent posts</h2>
@@ -99,7 +97,6 @@ export default async function AdminDashboard() {
             </ul>
           </div>
 
-          {/* Recent inquiries */}
           <div className="bg-white rounded-xl border border-light2">
             <div className="px-5 py-4 border-b border-light2 flex items-center justify-between">
               <h2 className="font-medium text-dark1 text-sm">Recent inquiries</h2>

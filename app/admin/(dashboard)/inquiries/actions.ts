@@ -21,9 +21,6 @@ export async function updateInquiryStatusAction(
 
   await prisma.inquiry.update({ where: { id }, data: { status } });
 
-  // Trigger 2: fire only on the first transition away from NEW. Once the
-  // status is no longer NEW, later toggles between CONTACTED/RESOLVED won't
-  // re-send because `existing.status` is no longer NEW.
   const isFirstHandling =
     existing.status === "NEW" &&
     (status === "CONTACTED" || status === "RESOLVED");

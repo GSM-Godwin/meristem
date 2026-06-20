@@ -42,7 +42,6 @@ export async function createInquiryAction(
     return { error: "Something went wrong. Please try again." };
   }
 
-  // Best-effort admin notification — never blocks or fails the submission.
   await notifyAdminsOfNewInquiry(inquiry);
 
   return { ok: true };

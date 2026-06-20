@@ -1,7 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { sendEmail, siteUrl } from "@/lib/email";
 
-/** Minimal HTML-escaping for user-supplied strings interpolated into email markup. */
 function escapeHtml(value: string): string {
   return value
     .replace(/&/g, "&amp;")
@@ -11,7 +10,6 @@ function escapeHtml(value: string): string {
     .replace(/'/g, "&#39;");
 }
 
-/** Preserve user line breaks when rendering a plain-text message inside HTML. */
 function nl2br(value: string): string {
   return escapeHtml(value).replace(/\r?\n/g, "<br />");
 }
@@ -24,11 +22,6 @@ interface InquiryEmailData {
   message: string;
 }
 
-/**
- * Trigger 1 — notify every admin that a new inquiry came in.
- * Best-effort: failures are swallowed by `sendEmail` and never block the
- * inquiry from being saved.
- */
 export async function notifyAdminsOfNewInquiry(inquiry: InquiryEmailData): Promise<void> {
   const admins = await prisma.admin.findMany({ select: { email: true } });
   const recipients = admins.map((a) => a.email).filter(Boolean);
@@ -72,11 +65,7 @@ export async function notifyAdminsOfNewInquiry(inquiry: InquiryEmailData): Promi
   });
 }
 
-/**
- * Trigger 2 — let the sender know their inquiry was received and is being
- * handled. Fired only on the first transition away from NEW (the caller is
- * responsible for that gating). Best-effort: never throws.
- */
+
 export async function notifySenderInquiryHandled(inquiry: {
   name: string;
   email: string;

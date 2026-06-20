@@ -11,7 +11,6 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-primarybg flex items-center justify-center px-4">
       <div className="w-full max-w-md">
-        {/* Logo */}
         <div className="flex justify-center mb-10">
           <Image src={logo} alt="Meristem Family Office" height={48} priority />
         </div>

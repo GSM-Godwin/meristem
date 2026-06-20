@@ -18,6 +18,21 @@ function adminSlugFor(category: PostCategory): string {
     : "publications";
 }
 
+function revalidatePublicPost(category: PostCategory, slug: string) {
+  revalidatePath("/insights");
+  if (category === "INSIGHT") {
+    revalidatePath("/insights/all");
+    revalidatePath(`/insights/${slug}`);
+  } else if (category === "PERSPECTIVE") {
+    revalidatePath("/");
+    revalidatePath("/perspectives");
+    revalidatePath(`/perspectives/${slug}`);
+  } else {
+    revalidatePath("/publications");
+    revalidatePath(`/publications/${slug}`);
+  }
+}
+
 export async function deletePostAction(formData: FormData) {
   const session = await getSession();
   if (!session) return;
@@ -27,7 +42,7 @@ export async function deletePostAction(formData: FormData) {
 
   const post = await prisma.post.findUnique({
     where: { id },
-    select: { category: true },
+    select: { category: true, slug: true },
   });
 
   if (!post) return;
@@ -35,6 +50,7 @@ export async function deletePostAction(formData: FormData) {
   await prisma.post.delete({ where: { id } });
 
   revalidatePath(`/admin/${adminSlugFor(post.category)}`);
+  revalidatePublicPost(post.category, post.slug);
 }
 
 type SaveResult = { error: string };
@@ -168,9 +184,9 @@ export async function savePostAction(
 
   let category: PostCategory = values.category;
 
-  // Slug of an Insight that just transitioned not-Published → PUBLISHED, which
-  // triggers the newsletter campaign. Null means no campaign should be sent.
   let newlyPublishedInsightSlug: string | null = null;
+  let revalidateSlug = "";
+  let priorCategory: PostCategory | undefined;
 
   try {
     if (values.id) {
@@ -192,6 +208,8 @@ export async function savePostAction(
       ]);
 
       category = existing.category;
+      revalidateSlug = existing.slug;
+      priorCategory = existing.category;
 
       if (
         values.category === "INSIGHT" &&
@@ -202,6 +220,7 @@ export async function savePostAction(
       }
     } else {
       const slug = await generateUniqueSlug(values.title);
+      revalidateSlug = slug;
 
       await prisma.post.create({
         data: {
@@ -220,8 +239,6 @@ export async function savePostAction(
     return { error: "Something went wrong while saving. Please try again." };
   }
 
-  // Trigger 3: a real not-Published → PUBLISHED transition for an Insight.
-  // Best-effort and never throws, so it can't break the save/redirect.
   if (newlyPublishedInsightSlug) {
     await sendInsightCampaign({
       title: baseData.title,
@@ -231,6 +248,11 @@ export async function savePostAction(
   }
 
   revalidatePath(`/admin/${adminSlugFor(category)}`);
+  revalidatePublicPost(values.category, revalidateSlug);
+  if (priorCategory && priorCategory !== values.category) {
+    revalidatePath(`/admin/${adminSlugFor(priorCategory)}`);
+    revalidatePublicPost(priorCategory, revalidateSlug);
+  }
 
   redirect(`/admin/${adminSlugFor(category)}`);
 }

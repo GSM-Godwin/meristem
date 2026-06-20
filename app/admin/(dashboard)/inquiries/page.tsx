@@ -43,7 +43,6 @@ export default async function InquiriesPage() {
           </div>
         ) : (
           <>
-            {/* Mobile stacked cards — hidden on md+ */}
             <div className="md:hidden space-y-3">
               {inquiries.map((inq) => (
                 <div
@@ -86,7 +85,6 @@ export default async function InquiriesPage() {
               ))}
             </div>
 
-            {/* Desktop table — hidden on mobile */}
             <div className="hidden md:block bg-white rounded-xl border border-light2 overflow-hidden">
               <table className="w-full text-sm">
                 <thead>
