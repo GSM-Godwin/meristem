@@ -13,7 +13,7 @@
 // NOTE: for sends to actually deliver, this reply_to's domain must be
 // authenticated in the Mailchimp account.
 const FROM_NAME = "Meristem Family Office";
-const REPLY_TO = "insights@meristemfamilyoffice.com";
+const REPLY_TO = "familyoffice@meristemng.com";
 
 function escapeHtml(value: string): string {
   return value

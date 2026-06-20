@@ -66,6 +66,20 @@ export default async function InquiryDetailPage({
               </div>
             </div>
 
+            {inquiry.phone && (
+              <div className="px-4 md:px-6 py-5">
+                <p className="text-xs font-medium text-neutral uppercase tracking-wide mb-2">
+                  Phone
+                </p>
+                <a
+                  href={`tel:${inquiry.phone}`}
+                  className="text-sm text-primary hover:text-yellow transition-colors"
+                >
+                  {inquiry.phone}
+                </a>
+              </div>
+            )}
+
             {/* Message body */}
             <div className="px-4 md:px-6 py-5">
               <p className="text-xs font-medium text-neutral uppercase tracking-wide mb-3">

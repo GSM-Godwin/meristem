@@ -30,15 +30,12 @@ export async function createInquiryAction(
   }
 
   const name = `${firstName} ${lastName}`.trim();
-  // The Inquiry model has no phone column; fold it into the message so it is
-  // not lost and is visible to admins in the dashboard.
-  const fullMessage = phone ? `${message}\n\nPhone: ${phone}` : message;
 
   let inquiry;
   try {
     inquiry = await prisma.inquiry.create({
-      data: { name, email, message: fullMessage },
-      select: { id: true, name: true, email: true, message: true },
+      data: { name, email, phone: phone || null, message },
+      select: { id: true, name: true, email: true, phone: true, message: true },
     });
   } catch (err) {
     console.error("Failed to create inquiry:", err);

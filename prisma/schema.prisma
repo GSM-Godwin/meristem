@@ -95,6 +95,7 @@ model Inquiry {
   id        String        @id @default(cuid())
   name      String
   email     String
+  phone     String?
   message   String
   status    InquiryStatus @default(NEW)
   createdAt DateTime      @default(now())

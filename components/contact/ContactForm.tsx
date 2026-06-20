@@ -1,6 +1,8 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 import { createInquiryAction, type ContactState } from "@/app/contact/actions";
 
 export default function ContactForm() {
@@ -8,6 +10,7 @@ export default function ContactForm() {
     createInquiryAction,
     null
   );
+  const [phone, setPhone] = useState<string | undefined>();
 
   const inputClassName =
     "w-full px-4 py-3.5 sm:py-3 text-base text-[#181D27] border border-[#DEE3EB] rounded-lg outline-none focus:border-yellow placeholder:text-[#A5ADC0]";
@@ -85,17 +88,15 @@ export default function ContactForm() {
         <label htmlFor="phone" className="text-sm font-medium text-[#535862]">
           Phone number
         </label>
-        <div className="flex gap-3">
-          <div className="flex items-center gap-2 px-4 py-3 border border-light2 rounded-lg text-base text-[#535862] shrink-0">
-            NG
-          </div>
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            className={inputClassName}
-          />
-        </div>
+        <PhoneInput
+          id="phone"
+          className="text-neutral"
+          defaultCountry="NG"
+          value={phone}
+          onChange={setPhone}
+          numberInputProps={{ className: inputClassName }}
+        />
+        <input type="hidden" name="phone" value={phone ?? ""} />
       </div>
 
       <div className="flex flex-col gap-2">

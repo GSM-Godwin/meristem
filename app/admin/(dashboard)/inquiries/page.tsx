@@ -54,6 +54,9 @@ export default async function InquiriesPage() {
                     <div className="min-w-0">
                       <p className="font-medium text-dark1 text-sm">{inq.name}</p>
                       <p className="text-xs text-neutral mt-0.5 truncate">{inq.email}</p>
+                      {inq.phone && (
+                        <p className="text-xs text-neutral mt-0.5 truncate">{inq.phone}</p>
+                      )}
                     </div>
                     <span
                       className={`shrink-0 inline-flex items-center text-xs font-medium px-2.5 py-1 rounded-full ${STATUS_BADGE[inq.status]}`}
@@ -95,6 +98,9 @@ export default async function InquiriesPage() {
                       Email
                     </th>
                     <th className="text-left px-5 py-3 text-xs font-medium text-neutral uppercase tracking-wide hidden lg:table-cell">
+                      Phone
+                    </th>
+                    <th className="text-left px-5 py-3 text-xs font-medium text-neutral uppercase tracking-wide hidden lg:table-cell">
                       Date
                     </th>
                     <th className="text-left px-5 py-3 text-xs font-medium text-neutral uppercase tracking-wide">
@@ -111,6 +117,9 @@ export default async function InquiriesPage() {
                       </td>
                       <td className="px-5 py-4 text-neutral">
                         {inq.email}
+                      </td>
+                      <td className="px-5 py-4 text-neutral hidden lg:table-cell">
+                        {inq.phone ?? ""}
                       </td>
                       <td className="px-5 py-4 text-neutral hidden lg:table-cell">
                         {new Date(inq.createdAt).toLocaleDateString("en-GB", {

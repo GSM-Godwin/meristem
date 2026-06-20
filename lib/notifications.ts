@@ -20,6 +20,7 @@ interface InquiryEmailData {
   id: string;
   name: string;
   email: string;
+  phone: string | null;
   message: string;
 }
 
@@ -40,6 +41,7 @@ export async function notifyAdminsOfNewInquiry(inquiry: InquiryEmailData): Promi
       <h2 style="margin:0 0 16px;">New inquiry received</h2>
       <p style="margin:0 0 4px;"><strong>Name:</strong> ${escapeHtml(inquiry.name)}</p>
       <p style="margin:0 0 4px;"><strong>Email:</strong> ${escapeHtml(inquiry.email)}</p>
+      ${inquiry.phone ? `<p style="margin:0 0 4px;"><strong>Phone:</strong> ${escapeHtml(inquiry.phone)}</p>` : ""}
       <p style="margin:16px 0 4px;"><strong>Message:</strong></p>
       <p style="margin:0 0 24px;white-space:pre-wrap;">${nl2br(inquiry.message)}</p>
       <a href="${link}" style="display:inline-block;background:#E2A93B;color:#ffffff;text-decoration:none;font-weight:600;padding:10px 20px;border-radius:8px;">
@@ -54,6 +56,7 @@ export async function notifyAdminsOfNewInquiry(inquiry: InquiryEmailData): Promi
     "",
     `Name: ${inquiry.name}`,
     `Email: ${inquiry.email}`,
+    ...(inquiry.phone ? [`Phone: ${inquiry.phone}`] : []),
     "",
     "Message:",
     inquiry.message,
