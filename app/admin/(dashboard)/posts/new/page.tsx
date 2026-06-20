@@ -50,7 +50,7 @@ export default async function NewPostPage({
       <AdminTopbar
         title={`New ${hasValidCategory ? CATEGORY_LABEL[category] : "Post"}`}
       />
-      <main className="flex-1 overflow-y-auto p-6">
+      <main className="flex-1 overflow-y-auto p-4 md:p-6">
         <PostForm
           initialValues={initialValues}
           lockCategory={hasValidCategory}

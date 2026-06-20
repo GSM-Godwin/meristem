@@ -443,7 +443,7 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
                   <button
                     type="button"
                     onClick={() => removeSection(section.key)}
-                    className="text-xs text-red-600 hover:text-red-700 transition-colors"
+                    className="text-xs text-red-600 hover:text-red-700 transition-colors py-1.5 px-1 -mr-1 min-h-9 flex items-center"
                   >
                     Remove section
                   </button>
@@ -494,7 +494,7 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
                 <button
                   type="button"
                   onClick={() => removeSection(section.key)}
-                  className="text-xs text-red-600 hover:text-red-700 transition-colors"
+                  className="text-xs text-red-600 hover:text-red-700 transition-colors py-1.5 px-1 -mr-1 min-h-9 flex items-center"
                 >
                   Remove section
                 </button>
@@ -531,7 +531,7 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
                         <button
                           type="button"
                           onClick={() => removeBlock(section.key, block.key)}
-                          className="text-xs text-red-600 hover:text-red-700 transition-colors"
+                          className="text-xs text-red-600 hover:text-red-700 transition-colors py-1.5 px-1 -mr-1 min-h-9 min-w-9 flex items-center justify-end"
                         >
                           Delete
                         </button>
@@ -565,18 +565,18 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
                 </div>
               )}
 
-              <div className="flex items-center gap-2 pt-1">
+              <div className="flex flex-wrap items-center gap-2 pt-1">
                 <button
                   type="button"
                   onClick={() => addBlock(section.key, "PARAGRAPH")}
-                  className="inline-flex items-center gap-1.5 text-xs font-medium text-primary border border-light2 rounded-lg px-3 py-1.5 hover:border-primary hover:bg-light1 transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-medium text-primary border border-light2 rounded-lg px-3 py-2.5 hover:border-primary hover:bg-light1 transition-colors min-h-10"
                 >
                   + Add paragraph
                 </button>
                 <button
                   type="button"
                   onClick={() => addBlock(section.key, "IMAGE")}
-                  className="inline-flex items-center gap-1.5 text-xs font-medium text-primary border border-light2 rounded-lg px-3 py-1.5 hover:border-primary hover:bg-light1 transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-medium text-primary border border-light2 rounded-lg px-3 py-2.5 hover:border-primary hover:bg-light1 transition-colors min-h-10"
                 >
                   + Add image
                 </button>
@@ -584,7 +584,7 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
                   <button
                     type="button"
                     onClick={() => addBlock(section.key, "VIDEO")}
-                    className="inline-flex items-center gap-1.5 text-xs font-medium text-primary border border-light2 rounded-lg px-3 py-1.5 hover:border-primary hover:bg-light1 transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-medium text-primary border border-light2 rounded-lg px-3 py-2.5 hover:border-primary hover:bg-light1 transition-colors min-h-10"
                   >
                     + Add video
                   </button>
@@ -594,11 +594,11 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
           );
         })}
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <button
             type="button"
             onClick={addContentSection}
-            className="inline-flex items-center gap-2 text-sm font-medium text-dark1 border border-light2 bg-white rounded-lg px-4 py-2.5 hover:border-primary transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-medium text-dark1 border border-light2 bg-white rounded-lg px-4 py-2.5 hover:border-primary transition-colors min-h-11"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <line x1="12" y1="5" x2="12" y2="19" />
@@ -609,7 +609,7 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
           <button
             type="button"
             onClick={addQuoteSection}
-            className="inline-flex items-center gap-2 text-sm font-medium text-yellow border border-yellow/40 bg-primarybg rounded-lg px-4 py-2.5 hover:border-yellow transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-medium text-yellow border border-yellow/40 bg-primarybg rounded-lg px-4 py-2.5 hover:border-yellow transition-colors min-h-11"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
               <path d="M7.17 6A5.001 5.001 0 0 0 4 10.7V18h7v-7H7.5c0-1.93 1.57-3.5 3.5-3.5V6H7.17zM17.17 6A5.001 5.001 0 0 0 14 10.7V18h7v-7h-3.5c0-1.93 1.57-3.5 3.5-3.5V6h-3.83z" />

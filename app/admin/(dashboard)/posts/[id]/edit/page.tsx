@@ -73,7 +73,7 @@ export default async function EditPostPage({
   return (
     <>
       <AdminTopbar title="Edit post" />
-      <main className="flex-1 overflow-y-auto p-6">
+      <main className="flex-1 overflow-y-auto p-4 md:p-6">
         <PostForm initialValues={initialValues} lockCategory={false} mode="edit" />
       </main>
     </>

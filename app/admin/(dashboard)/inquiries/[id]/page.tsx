@@ -22,7 +22,7 @@ export default async function InquiryDetailPage({
     <>
       <AdminTopbar title="Inquiry" />
 
-      <main className="flex-1 overflow-y-auto p-6">
+      <main className="flex-1 overflow-y-auto p-4 md:p-6">
         <div className="max-w-2xl mx-auto space-y-5">
           {/* Back link */}
           <Link
@@ -37,7 +37,7 @@ export default async function InquiryDetailPage({
 
           {/* Main card */}
           <div className="bg-white rounded-xl border border-light2 divide-y divide-light2">
-            <div className="px-6 py-5 flex items-start justify-between gap-4">
+            <div className="px-4 md:px-6 py-5 flex items-start justify-between gap-4">
               <div>
                 <h2 className="text-xl font-semibold text-dark1">
                   {inquiry.name}
@@ -67,7 +67,7 @@ export default async function InquiryDetailPage({
             </div>
 
             {/* Message body */}
-            <div className="px-6 py-5">
+            <div className="px-4 md:px-6 py-5">
               <p className="text-xs font-medium text-neutral uppercase tracking-wide mb-3">
                 Message
               </p>
@@ -77,7 +77,7 @@ export default async function InquiryDetailPage({
             </div>
 
             {/* Reply shortcut */}
-            <div className="px-6 py-4 bg-light1 rounded-b-xl">
+            <div className="px-4 md:px-6 py-4 bg-light1 rounded-b-xl">
               <a
                 href={`mailto:${inquiry.email}?subject=Re: Your inquiry`}
                 className="inline-flex items-center gap-2 text-sm font-medium text-dark1 border border-light2 bg-white rounded-lg px-4 py-2 hover:border-primary transition-colors"

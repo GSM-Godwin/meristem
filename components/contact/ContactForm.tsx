@@ -1,35 +1,46 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState } from "react";
+import { createInquiryAction, type ContactState } from "@/app/contact/actions";
 
 export default function ContactForm() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      message: "",
-    });
-  };
+  const [state, formAction, pending] = useActionState<ContactState, FormData>(
+    createInquiryAction,
+    null
+  );
 
   const inputClassName =
     "w-full px-4 py-3.5 sm:py-3 text-base text-[#181D27] border border-[#DEE3EB] rounded-lg outline-none focus:border-yellow placeholder:text-[#A5ADC0]";
 
+  if (state && "ok" in state) {
+    return (
+      <div className="border border-[#E9EAEB] rounded-xl p-8 flex flex-col items-center justify-center text-center gap-4 min-h-100">
+        <div className="w-14 h-14 rounded-full bg-yellow/10 flex items-center justify-center">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E2A93B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+            <polyline points="22 4 12 14.01 9 11.01" />
+          </svg>
+        </div>
+        <h3 className="text-xl font-semibold text-[#181D27]">Message sent</h3>
+        <p className="text-base text-[#535862] max-w-sm">
+          Thank you for reaching out. A member of our team will be in touch with
+          you shortly.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <form
-      onSubmit={handleSubmit}
+      action={formAction}
       className="border border-[#E9EAEB] rounded-xl p-5 sm:p-8 flex flex-col gap-5 sm:gap-6"
     >
+      {state && "error" in state && (
+        <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg px-4 py-3">
+          {state.error}
+        </div>
+      )}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         <div className="flex flex-col gap-2">
           <label htmlFor="firstName" className="text-sm font-medium text-[#535862]">
@@ -37,12 +48,9 @@ export default function ContactForm() {
           </label>
           <input
             id="firstName"
+            name="firstName"
             type="text"
             required
-            value={formData.firstName}
-            onChange={(e) =>
-              setFormData((prev) => ({ ...prev, firstName: e.target.value }))
-            }
             className={inputClassName}
           />
         </div>
@@ -52,12 +60,9 @@ export default function ContactForm() {
           </label>
           <input
             id="lastName"
+            name="lastName"
             type="text"
             required
-            value={formData.lastName}
-            onChange={(e) =>
-              setFormData((prev) => ({ ...prev, lastName: e.target.value }))
-            }
             className={inputClassName}
           />
         </div>
@@ -69,12 +74,9 @@ export default function ContactForm() {
         </label>
         <input
           id="email"
+          name="email"
           type="email"
           required
-          value={formData.email}
-          onChange={(e) =>
-            setFormData((prev) => ({ ...prev, email: e.target.value }))
-          }
           className={inputClassName}
         />
       </div>
@@ -84,16 +86,13 @@ export default function ContactForm() {
           Phone number
         </label>
         <div className="flex gap-3">
-          <div className="flex items-center gap-2 px-4 py-3 border border-[#DEE3EB] rounded-lg text-base text-[#535862] shrink-0">
+          <div className="flex items-center gap-2 px-4 py-3 border border-light2 rounded-lg text-base text-[#535862] shrink-0">
             NG
           </div>
           <input
             id="phone"
+            name="phone"
             type="tel"
-            value={formData.phone}
-            onChange={(e) =>
-              setFormData((prev) => ({ ...prev, phone: e.target.value }))
-            }
             className={inputClassName}
           />
         </div>
@@ -105,21 +104,19 @@ export default function ContactForm() {
         </label>
         <textarea
           id="message"
+          name="message"
           required
           rows={5}
-          value={formData.message}
-          onChange={(e) =>
-            setFormData((prev) => ({ ...prev, message: e.target.value }))
-          }
           className={`${inputClassName} resize-none`}
         />
       </div>
 
       <button
         type="submit"
-        className="w-full py-3.5 bg-yellow text-white text-base font-semibold rounded-lg hover:opacity-90 transition-opacity"
+        disabled={pending}
+        className="w-full py-3.5 bg-yellow text-white text-base font-semibold rounded-lg hover:opacity-90 transition-opacity disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        Send message
+        {pending ? "Sending…" : "Send message"}
       </button>
     </form>
   );

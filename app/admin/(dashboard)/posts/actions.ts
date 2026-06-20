@@ -5,6 +5,8 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { generateUniqueSlug } from "@/lib/slug";
+import { sendInsightCampaign } from "@/lib/mailchimp";
+import { siteUrl } from "@/lib/email";
 import type { PostFormValues } from "@/lib/types/post-form";
 import type { PostCategory, Prisma } from "@prisma/client";
 
@@ -166,11 +168,15 @@ export async function savePostAction(
 
   let category: PostCategory = values.category;
 
+  // Slug of an Insight that just transitioned not-Published → PUBLISHED, which
+  // triggers the newsletter campaign. Null means no campaign should be sent.
+  let newlyPublishedInsightSlug: string | null = null;
+
   try {
     if (values.id) {
       const existing = await prisma.post.findUnique({
         where: { id: values.id },
-        select: { id: true, category: true },
+        select: { id: true, category: true, status: true, slug: true },
       });
       if (!existing) return { error: "Post not found." };
 
@@ -186,6 +192,14 @@ export async function savePostAction(
       ]);
 
       category = existing.category;
+
+      if (
+        values.category === "INSIGHT" &&
+        values.status === "PUBLISHED" &&
+        existing.status !== "PUBLISHED"
+      ) {
+        newlyPublishedInsightSlug = existing.slug;
+      }
     } else {
       const slug = await generateUniqueSlug(values.title);
 
@@ -196,10 +210,24 @@ export async function savePostAction(
           sections: { create: sectionsCreate },
         },
       });
+
+      if (values.category === "INSIGHT" && values.status === "PUBLISHED") {
+        newlyPublishedInsightSlug = slug;
+      }
     }
   } catch (err) {
     console.error("Failed to save post:", err);
     return { error: "Something went wrong while saving. Please try again." };
+  }
+
+  // Trigger 3: a real not-Published → PUBLISHED transition for an Insight.
+  // Best-effort and never throws, so it can't break the save/redirect.
+  if (newlyPublishedInsightSlug) {
+    await sendInsightCampaign({
+      title: baseData.title,
+      shortDescription: baseData.shortDescription,
+      url: `${siteUrl()}/insights/${newlyPublishedInsightSlug}`,
+    });
   }
 
   revalidatePath(`/admin/${adminSlugFor(category)}`);

@@ -43,13 +43,13 @@ export default function ImageUpload({ value, onChange, compact }: ImageUploadPro
   return (
     <div className={compact ? "" : "space-y-2"}>
       {value ? (
-        <div className="relative inline-block">
+        <div className={`relative block ${compact ? "" : "max-w-sm"}`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={value}
             alt="Uploaded preview"
-            className={`rounded-lg border border-light2 object-cover ${
-              compact ? "h-32 w-full" : "h-44 w-full max-w-sm"
+            className={`rounded-lg border border-light2 object-cover w-full ${
+              compact ? "h-32" : "h-44"
             }`}
           />
           <div className="mt-2 flex items-center gap-3">
@@ -75,8 +75,8 @@ export default function ImageUpload({ value, onChange, compact }: ImageUploadPro
           type="button"
           onClick={() => inputRef.current?.click()}
           disabled={uploading}
-          className={`flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-light2 bg-light1 text-neutral hover:border-primary hover:text-primary transition-colors disabled:opacity-60 ${
-            compact ? "h-32 w-full" : "h-44 w-full max-w-sm"
+          className={`flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-light2 bg-light1 text-neutral hover:border-primary hover:text-primary transition-colors disabled:opacity-60 w-full ${
+            compact ? "h-32" : "h-44 max-w-sm"
           }`}
         >
           {uploading ? (
