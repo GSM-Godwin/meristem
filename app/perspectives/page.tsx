@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PerspectivesContent from "@/components/perspectives/PerspectivesContent";
+import { getPublishedPostCards } from "@/lib/post-cards";
 
 export const metadata: Metadata = {
   title: "Perspectives | Meristem Family Office",
@@ -9,12 +10,14 @@ export const metadata: Metadata = {
     "Perspectives and reflections on continuity, stewardship, family enterprise, succession, governance, and the future of wealth across generations.",
 };
 
-export default function PerspectivesPage() {
+export default async function PerspectivesPage() {
+  const perspectives = await getPublishedPostCards("PERSPECTIVE");
+
   return (
     <>
       <Navbar />
       <main>
-        <PerspectivesContent />
+        <PerspectivesContent posts={perspectives} />
       </main>
       <Footer />
     </>

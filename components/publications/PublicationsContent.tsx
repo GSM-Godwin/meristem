@@ -3,20 +3,19 @@
 import { useMemo, useState } from "react";
 import PostCard from "@/components/shared/PostCard";
 import Pagination from "@/components/shared/Pagination";
-import {
-  getPaginatedPublications,
-  getTotalPublicationPages,
-} from "@/lib/data/publications";
+import type { PostCardData } from "@/lib/post-cards";
 
-export default function PublicationsContent() {
+const PER_PAGE = 9;
+
+export default function PublicationsContent({ posts }: { posts: PostCardData[] }) {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const paginatedPublications = useMemo(
-    () => getPaginatedPublications(currentPage),
-    [currentPage]
-  );
+  const totalPages = Math.max(1, Math.ceil(posts.length / PER_PAGE));
 
-  const totalPages = getTotalPublicationPages();
+  const paginatedPublications = useMemo(() => {
+    const start = (currentPage - 1) * PER_PAGE;
+    return posts.slice(start, start + PER_PAGE);
+  }, [currentPage, posts]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -40,33 +39,40 @@ export default function PublicationsContent() {
 
       {/* Listing */}
       <section className="px-5 md:px-10 lg:px-20 pb-20">
-        <div className="max-w-6xl mx-auto">
+        <div className="mx-auto">
           <h2 className="text-xl font-semibold text-dark1 mb-10">
             All publications
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-12 mb-14">
-            {paginatedPublications.map((pub) => (
-              <PostCard
-                key={pub.id}
-                href={`/publications/${pub.slug}`}
-                variant="publication"
-                coverColor={pub.coverColor}
-                coverSrc={pub.coverSrc}
-                comingSoon={pub.comingSoon}
-                title={pub.title}
-                author={pub.author}
-                date={pub.date}
-                excerpt={pub.excerpt}
-              />
-            ))}
-          </div>
+          {posts.length === 0 ? (
+            <div className="rounded-sm border border-dashed border-light2 bg-primarybg/30 px-6 py-16 text-center">
+              <p className="text-sm text-neutral">No publications yet — check back soon.</p>
+            </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-12 mb-14">
+                {paginatedPublications.map((pub) => (
+                  <PostCard
+                    key={pub.id}
+                    href={`/publications/${pub.slug}`}
+                    variant="publication"
+                    coverSrc={pub.coverSrc}
+                    comingSoon={pub.comingSoon}
+                    title={pub.title}
+                    author={pub.author}
+                    date={pub.date}
+                    excerpt={pub.excerpt}
+                  />
+                ))}
+              </div>
 
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
+            </>
+          )}
         </div>
       </section>
     </div>

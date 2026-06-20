@@ -3,34 +3,31 @@ import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ArticleTemplate from "@/components/shared/ArticleTemplate";
-import { getPublicationBySlug, publications } from "@/lib/data/publications";
+import { getPostDetailBySlug } from "@/lib/post-detail";
+import { getRelatedPostCards } from "@/lib/post-cards";
 
 interface PublicationPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateStaticParams() {
-  return publications.map((p) => ({ slug: p.slug }));
-}
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export async function generateMetadata({ params }: PublicationPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const publication = getPublicationBySlug(slug);
-  if (!publication) return { title: "Publication Not Found | Meristem Family Office" };
+  const post = await getPostDetailBySlug("PUBLICATION", slug);
+  if (!post) return { title: "Publication Not Found | Meristem Family Office" };
   return {
-    title: `${publication.title} | Meristem Family Office`,
-    description: publication.excerpt,
+    title: `${post.title} | Meristem Family Office`,
+    description: post.intro,
   };
 }
 
 export default async function PublicationDetailPage({ params }: PublicationPageProps) {
   const { slug } = await params;
-  const publication = getPublicationBySlug(slug);
-  if (!publication) notFound();
+  const post = await getPostDetailBySlug("PUBLICATION", slug);
+  if (!post) notFound();
 
-  const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/publications/${publication.slug}`;
-
-  const related = publications.filter((p) => p.slug !== slug).slice(0, 3);
+  const related = await getRelatedPostCards("PUBLICATION", slug, 3);
 
   return (
     <>
@@ -40,15 +37,15 @@ export default async function PublicationDetailPage({ params }: PublicationPageP
           categoryLabel="Publications"
           backHref="/publications"
           backLabel="Back to Publications"
-          title={publication.title}
-          intro={publication.intro}
-          author={publication.author}
-          date={publication.date}
-          coverSrc={publication.coverSrc}
-          content={publication.content}
-          shareUrl={shareUrl}
-          fileUrl={publication.fileUrl}
-          comingSoon={publication.comingSoon}
+          title={post.title}
+          intro={post.intro}
+          author={post.author}
+          date={post.date}
+          coverSrc={post.coverSrc}
+          content={post.content}
+          shareUrl={`${siteUrl}/publications/${post.slug}`}
+          fileUrl={post.fileUrl ?? undefined}
+          comingSoon={post.comingSoon}
           relatedPosts={related.map((r) => ({
             id: r.id,
             slug: r.slug,
@@ -56,7 +53,6 @@ export default async function PublicationDetailPage({ params }: PublicationPageP
             author: r.author,
             date: r.date,
             excerpt: r.excerpt,
-            coverColor: r.coverColor,
             coverSrc: r.coverSrc,
             comingSoon: r.comingSoon,
             cardVariant: "publication" as const,

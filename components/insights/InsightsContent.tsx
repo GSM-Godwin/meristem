@@ -3,9 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import PostCard from "@/components/shared/PostCard";
-import { insights } from "@/lib/data/insights";
-import { perspectives } from "@/lib/data/perspectives";
-import { publications } from "@/lib/data/publications";
+import type { PostCardData } from "@/lib/post-cards";
 
 function SubscribeForm() {
   const [email, setEmail] = useState("");
@@ -87,11 +85,25 @@ function SectionHeader({
   );
 }
 
-const hubPublications = publications.slice(0, 3);
-const hubInsights = insights.slice(0, 6);
-const hubPerspectives = perspectives.slice(0, 6);
+function EmptyState({ label }: { label: string }) {
+  return (
+    <div className="rounded-sm border border-dashed border-light2 bg-primarybg/30 px-6 py-16 text-center">
+      <p className="text-sm text-neutral">{label}</p>
+    </div>
+  );
+}
 
-export default function InsightsContent() {
+interface InsightsContentProps {
+  publications: PostCardData[];
+  insights: PostCardData[];
+  perspectives: PostCardData[];
+}
+
+export default function InsightsContent({
+  publications,
+  insights,
+  perspectives,
+}: InsightsContentProps) {
   return (
     <div className="bg-white">
       <section className="px-5 md:px-10 lg:px-20 py-24">
@@ -111,22 +123,25 @@ export default function InsightsContent() {
       <section className="px-5 md:px-10 lg:px-20 pb-24">
         <div className="mx-auto">
           <SectionHeader title="Publications" seeMoreHref="/publications" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {hubPublications.map((pub) => (
-              <PostCard
-                key={pub.id}
-                href={`/publications/${pub.slug}`}
-                variant="publication"
-                coverColor={pub.coverColor}
-                coverSrc={pub.coverSrc}
-                comingSoon={pub.comingSoon}
-                title={pub.title}
-                author={pub.author}
-                date={pub.date}
-                excerpt={pub.excerpt}
-              />
-            ))}
-          </div>
+          {publications.length === 0 ? (
+            <EmptyState label="No publications yet — check back soon." />
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {publications.map((pub) => (
+                <PostCard
+                  key={pub.id}
+                  href={`/publications/${pub.slug}`}
+                  variant="publication"
+                  coverSrc={pub.coverSrc}
+                  comingSoon={pub.comingSoon}
+                  title={pub.title}
+                  author={pub.author}
+                  date={pub.date}
+                  excerpt={pub.excerpt}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -136,40 +151,47 @@ export default function InsightsContent() {
             title="Thought Leadership"
             seeMoreHref="/insights/all"
           />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-12">
-            {hubInsights.map((insight) => (
-              <PostCard
-                key={insight.id}
-                href={`/insights/${insight.slug}`}
-                variant="insight"
-                coverSrc={insight.coverSrc ?? "/report.png"}
-                title={insight.title}
-                author={insight.author}
-                date={insight.date}
-                excerpt={insight.excerpt}
-              />
-            ))}
-          </div>
+          {insights.length === 0 ? (
+            <EmptyState label="No insights published yet — check back soon." />
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-12">
+              {insights.map((insight) => (
+                <PostCard
+                  key={insight.id}
+                  href={`/insights/${insight.slug}`}
+                  variant="insight"
+                  coverSrc={insight.coverSrc}
+                  title={insight.title}
+                  author={insight.author}
+                  date={insight.date}
+                  excerpt={insight.excerpt}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
       <section className="px-5 md:px-10 lg:px-20 py-10">
         <div className="mx-auto">
           <SectionHeader title="Perspectives" seeMoreHref="/perspectives" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-12">
-            {hubPerspectives.map((p) => (
-              <PostCard
-                key={p.id}
-                href={`/perspectives/${p.slug}`}
-                variant="perspective"
-                coverSrc={p.coverSrc}
-                title={p.title}
-                author={p.author}
-                date={p.date}
-                duration={p.duration}
-              />
-            ))}
-          </div>
+          {perspectives.length === 0 ? (
+            <EmptyState label="No perspectives yet — check back soon." />
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-12">
+              {perspectives.map((p) => (
+                <PostCard
+                  key={p.id}
+                  href={`/perspectives/${p.slug}`}
+                  variant="perspective"
+                  coverSrc={p.coverSrc}
+                  title={p.title}
+                  author={p.author}
+                  date={p.date}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </div>

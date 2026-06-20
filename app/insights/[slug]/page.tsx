@@ -3,33 +3,31 @@ import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ArticleTemplate from "@/components/shared/ArticleTemplate";
-import { getInsightBySlug, getRelatedInsights, insights } from "@/lib/data/insights";
+import { getPostDetailBySlug } from "@/lib/post-detail";
+import { getRelatedPostCards } from "@/lib/post-cards";
 
 interface InsightPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateStaticParams() {
-  return insights.map((insight) => ({ slug: insight.slug }));
-}
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export async function generateMetadata({ params }: InsightPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const insight = getInsightBySlug(slug);
-  if (!insight) return { title: "Insight Not Found | Meristem Family Office" };
+  const post = await getPostDetailBySlug("INSIGHT", slug);
+  if (!post) return { title: "Insight Not Found | Meristem Family Office" };
   return {
-    title: `${insight.title} | Meristem Family Office`,
-    description: insight.intro,
+    title: `${post.title} | Meristem Family Office`,
+    description: post.intro,
   };
 }
 
 export default async function InsightDetailPage({ params }: InsightPageProps) {
   const { slug } = await params;
-  const insight = getInsightBySlug(slug);
-  if (!insight) notFound();
+  const post = await getPostDetailBySlug("INSIGHT", slug);
+  if (!post) notFound();
 
-  const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/insights/${insight.slug}`;
-  const related = getRelatedInsights(insight.slug, 3);
+  const related = await getRelatedPostCards("INSIGHT", slug, 3);
 
   return (
     <>
@@ -39,13 +37,13 @@ export default async function InsightDetailPage({ params }: InsightPageProps) {
           categoryLabel="Insights"
           backHref="/insights"
           backLabel="Back to Insights"
-          title={insight.title}
-          intro={insight.intro}
-          author={insight.author}
-          date={insight.date}
-          coverSrc={insight.coverSrc}
-          content={insight.content}
-          shareUrl={shareUrl}
+          title={post.title}
+          intro={post.intro}
+          author={post.author}
+          date={post.date}
+          coverSrc={post.coverSrc}
+          content={post.content}
+          shareUrl={`${siteUrl}/insights/${post.slug}`}
           relatedPosts={related.map((r) => ({
             id: r.id,
             slug: r.slug,
