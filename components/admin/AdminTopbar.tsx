@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getSession } from "@/lib/auth";
 import AdminMobileMenuButton from "./AdminMobileMenuButton";
 
@@ -20,14 +21,18 @@ export default async function AdminTopbar({ title }: AdminTopbarProps) {
         </h1>
       </div>
 
-      <div className="flex items-center gap-3 shrink-0">
+      <Link
+        href="/admin/profile"
+        aria-label="Account settings"
+        className="flex items-center gap-3 shrink-0 rounded-lg hover:bg-light1 transition-colors py-1.5 px-2 -mr-2 min-h-11"
+      >
         <span className="text-sm text-neutral hidden sm:block truncate max-w-50">
           {session?.email}
         </span>
         <div className="w-8 h-8 rounded-full bg-yellow flex items-center justify-center text-white text-xs font-semibold shrink-0">
           {initials}
         </div>
-      </div>
+      </Link>
     </header>
   );
 }

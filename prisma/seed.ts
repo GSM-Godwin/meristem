@@ -7,16 +7,16 @@ async function main() {
   const passwordHash = await bcrypt.hash("admin1234", 12);
 
   await prisma.admin.upsert({
-    where: { email: "admin@meristemfamilyoffice.com" },
+    where: { email: "familyoffice@meristemng.com" },
     update: {},
     create: {
       name: "Meristem Admin",
-      email: "admin@meristemfamilyoffice.com",
+      email: "familyoffice@meristemng.com",
       passwordHash,
     },
   });
 
-  console.log("✓ Admin user created — email: admin@meristemfamilyoffice.com  password: admin1234");
+  console.log("✓ Admin user created — email: familyoffice@meristemng.com  password: admin1234");
 
   const insight = await prisma.post.upsert({
     where: { slug: "simple-vs-comprehensive-will" },
