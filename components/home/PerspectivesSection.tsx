@@ -1,36 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import glassImg from "@/assets/wellbeing.png";
 import PlayButton from "@/components/perspectives/PlayButton";
-
-// TODO: Replace static placeholder data with a Prisma query for Posts where
-// featured = true and category = PERSPECTIVE, once backend integration
-// sections 8-12 resume. Query should be:
-//   prisma.post.findMany({ where: { featured: true, status: "PUBLISHED" }, orderBy: { publishDate: "desc" }, take: 3 })
-
-const PERSPECTIVES = [
-  {
-    slug: "podcast-creating-a-better-cx-community",
-    title: "Podcast: Creating a better CX Community",
-    author: "Brand & Comms Team",
-    date: "28 Mar 2024",
-    duration: "9:12",
-  },
-  {
-    slug: "how-collaboration-makes-us-better-designers",
-    title: "How collaboration makes us better designers",
-    author: "Brand & Comms Team",
-    date: "28 Mar 2024",
-    duration: "12:45",
-  },
-  {
-    slug: "our-top-10-javascript-frameworks-to-use",
-    title: "Our top 10 Javascript frameworks to use",
-    author: "Brand & Comms Team",
-    date: "28 Mar 2024",
-    duration: "8:30",
-  },
-];
+import { getPublishedPostCards } from "@/lib/post-cards";
 
 function ArrowUpRight() {
   return (
@@ -52,7 +23,11 @@ function ArrowUpRight() {
   );
 }
 
-export default function PerspectivesSection() {
+export default async function PerspectivesSection() {
+  const perspectives = await getPublishedPostCards("PERSPECTIVE", 3, true);
+
+  if (perspectives.length === 0) return null;
+
   return (
     <section className="bg-white py-20 px-5 md:px-10 lg:px-20">
       <div className="mx-auto">
@@ -75,15 +50,15 @@ export default function PerspectivesSection() {
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {PERSPECTIVES.map((item) => (
+          {perspectives.map((item) => (
             <Link
-              key={item.slug}
+              key={item.id}
               href={`/perspectives/${item.slug}`}
               className="group block"
             >
               <div className="relative rounded-lg overflow-hidden aspect-video mb-4">
                 <Image
-                  src={glassImg}
+                  src={item.coverSrc}
                   alt={item.title}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -92,8 +67,7 @@ export default function PerspectivesSection() {
               </div>
 
               <p className="text-xs md:text-[14px] text-yellow mb-2">
-                {item.author} &nbsp;·&nbsp; {item.date} &nbsp;·&nbsp;{" "}
-                {item.duration}
+                {item.author} &nbsp;·&nbsp; {item.date}
               </p>
 
               <h3 className="text-dark2 font-semibold text-[16px] md:text-[20px] lg:text-[24px] leading-tight group-hover:text-yellow transition-colors flex items-start gap-1.5">

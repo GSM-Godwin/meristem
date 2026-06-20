@@ -51,17 +51,23 @@ function toCardData(p: CardRow): PostCardData {
 /**
  * Fetches PUBLISHED posts for a category (newest first) as card-ready DTOs.
  * Pass `take` to cap the count (e.g. the Insights hub previews).
+ * Pass `featured: true` to restrict to featured posts only (e.g. the home page rail).
  */
 export async function getPublishedPostCards(
   category: PostCategory,
-  take?: number
+  take?: number,
+  featured?: boolean
 ): Promise<PostCardData[]> {
   // Exclude listings from prerendering so newly published/edited posts
   // appear immediately. Section 11 can layer in cacheTag-based caching later.
   await connection();
 
   const posts = await prisma.post.findMany({
-    where: { category, status: "PUBLISHED" },
+    where: {
+      category,
+      status: "PUBLISHED",
+      ...(featured ? { featured: true } : {}),
+    },
     orderBy: { publishDate: "desc" },
     ...(take ? { take } : {}),
     select: CARD_SELECT,
