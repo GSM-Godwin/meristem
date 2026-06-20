@@ -46,8 +46,10 @@ export default async function EditPostPage({
       attribution: "",
       blocks: s.blocks.map((b) =>
         b.type === "IMAGE"
-          ? { key: b.id, type: "IMAGE", text: "", imageUrl: b.imageUrl ?? "" }
-          : { key: b.id, type: "PARAGRAPH", text: b.text ?? "", imageUrl: "" }
+          ? { key: b.id, type: "IMAGE", text: "", imageUrl: b.imageUrl ?? "", videoUrl: "" }
+          : b.type === "VIDEO"
+          ? { key: b.id, type: "VIDEO", text: "", imageUrl: "", videoUrl: b.videoUrl ?? "" }
+          : { key: b.id, type: "PARAGRAPH", text: b.text ?? "", imageUrl: "", videoUrl: "" }
       ),
     };
   });
@@ -63,6 +65,8 @@ export default async function EditPostPage({
     publishDate: post.publishDate.toISOString().slice(0, 10),
     featured: post.featured,
     longDescription: post.longDescription,
+    fileUrl: post.fileUrl ?? "",
+    comingSoon: post.comingSoon,
     sections,
   };
 

@@ -9,11 +9,16 @@ cloudinary.config({
 
 export { cloudinary };
 
-export async function uploadImage(buffer: Buffer): Promise<string> {
+export type UploadResourceType = "image" | "video" | "raw";
+
+export async function uploadFile(
+  buffer: Buffer,
+  resourceType: UploadResourceType
+): Promise<string> {
   return new Promise((resolve, reject) => {
     cloudinary.uploader
       .upload_stream(
-        { folder: "meristem/posts", resource_type: "image" },
+        { folder: "meristem/posts", resource_type: resourceType },
         (error, result) => {
           if (error || !result) {
             reject(error ?? new Error("Cloudinary upload failed"));
@@ -24,4 +29,8 @@ export async function uploadImage(buffer: Buffer): Promise<string> {
       )
       .end(buffer);
   });
+}
+
+export async function uploadImage(buffer: Buffer): Promise<string> {
+  return uploadFile(buffer, "image");
 }

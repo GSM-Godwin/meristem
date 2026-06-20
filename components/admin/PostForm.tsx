@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import ImageUpload from "./ImageUpload";
+import FileUpload from "./FileUpload";
 import { savePostAction } from "@/app/admin/(dashboard)/posts/actions";
 import type { PostFormValues } from "@/lib/types/post-form";
 import type { PostCategory } from "@prisma/client";
@@ -99,15 +100,17 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
     }));
   }
 
-  function addBlock(sectionKey: string, type: "PARAGRAPH" | "IMAGE") {
+  function addBlock(sectionKey: string, type: "PARAGRAPH" | "IMAGE" | "VIDEO") {
     setValues((prev) => ({
       ...prev,
       sections: prev.sections.map((s) => {
         if (s.key !== sectionKey || s.type !== "CONTENT") return s;
         const block =
           type === "PARAGRAPH"
-            ? ({ key: newKey(), type: "PARAGRAPH", text: "", imageUrl: "" } as const)
-            : ({ key: newKey(), type: "IMAGE", text: "", imageUrl: "" } as const);
+            ? ({ key: newKey(), type: "PARAGRAPH", text: "", imageUrl: "", videoUrl: "" } as const)
+            : type === "IMAGE"
+            ? ({ key: newKey(), type: "IMAGE", text: "", imageUrl: "", videoUrl: "" } as const)
+            : ({ key: newKey(), type: "VIDEO", text: "", imageUrl: "", videoUrl: "" } as const);
         return { ...s, blocks: [...s.blocks, block] };
       }),
     }));
@@ -156,6 +159,22 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
     }));
   }
 
+  function updateBlockVideo(sectionKey: string, blockKey: string, videoUrl: string) {
+    setValues((prev) => ({
+      ...prev,
+      sections: prev.sections.map((s) =>
+        s.key === sectionKey && s.type === "CONTENT"
+          ? {
+              ...s,
+              blocks: s.blocks.map((b) =>
+                b.key === blockKey && b.type === "VIDEO" ? { ...b, videoUrl } : b
+              ),
+            }
+          : s
+      ),
+    }));
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
@@ -165,6 +184,24 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
     if (!values.featuredImage) return setError("A featured image is required.");
     if (!values.writtenBy.trim()) return setError("Written by is required.");
     if (!values.longDescription.trim()) return setError("Long description is required.");
+
+    if (values.status === "PUBLISHED") {
+      if (values.category === "PUBLICATION" && !values.fileUrl) {
+        return setError(
+          "A PDF is required to publish a Publication. Upload one, or save as a draft."
+        );
+      }
+      if (values.category === "PERSPECTIVE") {
+        const hasVideo = values.sections.some(
+          (s) => s.type === "CONTENT" && s.blocks.some((b) => b.type === "VIDEO")
+        );
+        if (!hasVideo) {
+          return setError(
+            "A Perspective must include at least one video block to be published. Add a video, or save as a draft."
+          );
+        }
+      }
+    }
 
     setSaving(true);
     const result = await savePostAction(values);
@@ -313,6 +350,45 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
           </label>
         </div>
 
+        {values.category === "PUBLICATION" && (
+          <div className="rounded-lg border border-light2 bg-light1 p-4 space-y-4">
+            <p className="text-xs font-medium uppercase tracking-wide text-light3">
+              Publication options
+            </p>
+
+            <div>
+              <label className={labelClass}>
+                Downloadable PDF
+                <span className="text-light3 font-normal"> (required to publish)</span>
+              </label>
+              <p className="text-xs text-neutral mb-2">
+                Separate from the featured image. Offered as a download on the detail page.
+              </p>
+              <FileUpload
+                kind="pdf"
+                value={values.fileUrl}
+                onChange={(url) => update("fileUrl", url)}
+              />
+            </div>
+
+            <div className="flex items-start gap-3">
+              <input
+                id="comingSoon"
+                type="checkbox"
+                checked={values.comingSoon}
+                onChange={(e) => update("comingSoon", e.target.checked)}
+                className="mt-0.5 h-4 w-4 rounded border-light2 text-yellow focus:ring-primary accent-yellow"
+              />
+              <label htmlFor="comingSoon" className="text-sm text-dark1">
+                Coming soon
+                <span className="block text-xs text-neutral mt-0.5">
+                  Listing cards show a “Coming soon” badge; the detail page hides the body and download.
+                </span>
+              </label>
+            </div>
+          </div>
+        )}
+
         <div>
           <label htmlFor="longDescription" className={labelClass}>
             Long description <span className="text-red-500">*</span>
@@ -446,7 +522,11 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
                     >
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-xs font-medium text-neutral">
-                          {block.type === "PARAGRAPH" ? "Paragraph" : "Image"}
+                          {block.type === "PARAGRAPH"
+                            ? "Paragraph"
+                            : block.type === "IMAGE"
+                            ? "Image"
+                            : "Video"}
                         </span>
                         <button
                           type="button"
@@ -467,11 +547,17 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
                           }
                           placeholder="Write a paragraph…"
                         />
-                      ) : (
+                      ) : block.type === "IMAGE" ? (
                         <ImageUpload
                           compact
                           value={block.imageUrl}
                           onChange={(url) => updateBlockImage(section.key, block.key, url)}
+                        />
+                      ) : (
+                        <FileUpload
+                          kind="video"
+                          value={block.videoUrl}
+                          onChange={(url) => updateBlockVideo(section.key, block.key, url)}
                         />
                       )}
                     </div>
@@ -494,6 +580,15 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
                 >
                   + Add image
                 </button>
+                {values.category === "PERSPECTIVE" && (
+                  <button
+                    type="button"
+                    onClick={() => addBlock(section.key, "VIDEO")}
+                    className="inline-flex items-center gap-1.5 text-xs font-medium text-primary border border-light2 rounded-lg px-3 py-1.5 hover:border-primary hover:bg-light1 transition-colors"
+                  >
+                    + Add video
+                  </button>
+                )}
               </div>
             </div>
           );

@@ -52,6 +52,8 @@ export default function PublicationsContent() {
                 href={`/publications/${pub.slug}`}
                 variant="publication"
                 coverColor={pub.coverColor}
+                coverSrc={pub.coverSrc}
+                comingSoon={pub.comingSoon}
                 title={pub.title}
                 author={pub.author}
                 date={pub.date}

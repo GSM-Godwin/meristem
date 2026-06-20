@@ -50,6 +50,7 @@ export default function PerspectivesContent() {
                 key={p.id}
                 href={`/perspectives/${p.slug}`}
                 variant="perspective"
+                coverSrc={p.coverSrc}
                 title={p.title}
                 author={p.author}
                 date={p.date}

@@ -37,7 +37,6 @@ export default async function InquiryDetailPage({
 
           {/* Main card */}
           <div className="bg-white rounded-xl border border-light2 divide-y divide-light2">
-            {/* Header */}
             <div className="px-6 py-5 flex items-start justify-between gap-4">
               <div>
                 <h2 className="text-xl font-semibold text-dark1">

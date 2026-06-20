@@ -6,8 +6,7 @@ import PostCard from "@/components/shared/PostCard";
 import Link from "next/link";
 import type { ContentBlock } from "@/lib/types/insight";
 import type { CardVariant } from "@/components/shared/PostCard";
-
-// ─── Types ────────────────────────────────────────────────────────────────────
+import { toDownloadUrl } from "@/lib/media";
 
 export interface RelatedArticle {
   id: string;
@@ -18,13 +17,13 @@ export interface RelatedArticle {
   excerpt?: string;
   duration?: string;
   coverColor?: string;
+  coverSrc?: string;
+  comingSoon?: boolean;
   cardVariant: CardVariant;
-  /** Base URL segment for related post links, e.g. "insights". */
   category: string;
 }
 
 export interface ArticleTemplateProps {
-  /** Display label e.g. "INSIGHTS", "PERSPECTIVES", "PUBLICATIONS" */
   categoryLabel: string;
   backHref: string;
   backLabel: string;
@@ -32,76 +31,89 @@ export interface ArticleTemplateProps {
   intro: string;
   author: string;
   date: string;
+  coverSrc?: string;
   content: ContentBlock[];
   shareUrl: string;
+  fileUrl?: string;
+  comingSoon?: boolean;
   relatedPosts: RelatedArticle[];
   relatedHeading?: string;
   relatedSeeAllHref?: string;
 }
 
-// ─── Component ────────────────────────────────────────────────────────────────
-
 export default function ArticleTemplate({
-  categoryLabel,
-  backHref,
-  backLabel,
   title,
   intro,
   author,
   date,
+  coverSrc,
   content,
   shareUrl,
+  fileUrl,
+  comingSoon = false,
   relatedPosts,
   relatedHeading = "More post",
   relatedSeeAllHref,
 }: ArticleTemplateProps) {
+  if (comingSoon) {
+    return (
+      <article className="px-5 md:px-10 lg:px-20 py-16 md:py-24 lg:py-32 bg-white">
+        <div className="mx-auto max-w-227.5 text-center">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-dark2 leading-tight mb-8">
+            {title}
+          </h1>
+          <div className="rounded-2xl border border-light2 bg-primarybg px-6 py-16 md:py-20">
+            <p className="text-xs md:text-sm font-semibold uppercase tracking-wide text-yellow mb-3">
+              Coming soon
+            </p>
+            <p className="text-lg md:text-xl text-neutral max-w-xl mx-auto leading-relaxed">
+              This publication isn&rsquo;t available yet. Please check back soon.
+            </p>
+          </div>
+        </div>
+      </article>
+    );
+  }
+
+  const downloadUrl = fileUrl ? toDownloadUrl(fileUrl) : undefined;
+
   return (
     <>
-      <article className="px-5 md:px-10 lg:px-20 pt-10 pb-16 bg-white">
-        <div className="max-w-6xl mx-auto">
-          {/* Breadcrumb / back link */}
-          <Link
-            href={backHref}
-            className="inline-flex items-center gap-1 text-sm text-neutral hover:text-yellow transition-colors mb-6"
-          >
-            ← {backLabel}
-          </Link>
-
-          {/* Category label */}
-          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-yellow mb-4">
-            {categoryLabel}
-          </p>
-
-          {/* Title + intro */}
-          <header className="max-w-[720px] mb-10">
-            <h1 className="text-3xl md:text-5xl font-semibold text-dark1 leading-tight tracking-[-0.02em] mb-5">
+      <article className="px-5 md:px-10 lg:px-20 py-8 md:py-16 lg:py-24 bg-white">
+        <div className="mx-auto">
+          <header className="max-w-3xl mb-16">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-dark2 leading-tight mb-6">
               {title}
             </h1>
-            <p className="text-lg text-neutral leading-[30px]">{intro}</p>
+            <p className="text-lg md:text-xl text-neutral leading-7.5">{intro}</p>
           </header>
 
-          {/* Hero image */}
-          <div className="relative w-full aspect-[1216/640] bg-primarybg overflow-hidden mb-8">
+          <div className="relative w-full aspect-1216/640 bg-primarybg overflow-hidden mb-8">
             <Image
-              src={logo}
+              src={coverSrc ?? logo}
               alt={title}
               fill
-              className="object-contain p-16 md:p-24"
+              className={coverSrc ? "object-cover" : "object-contain p-16 md:p-24"}
               priority
             />
           </div>
 
-          {/* Byline + share */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-5 border-y border-light2 mb-14">
-            <div>
-              <p className="text-base font-semibold text-dark1">{author}</p>
-              <p className="text-base text-neutral">Published {date}</p>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-5 border-light2 mb-14">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-5 md:gap-20">
+              <div className="flex flex-col gap-2 md:gap-4">
+                <p className="text-12px md:text-14px font-semibold text-yellow">Written by</p>
+                <p className="text-base md:text-lg text-dark2 font-medium">{author}</p>
+              </div>
+              <div className="flex flex-col gap-2 md:gap-4">
+                <p className="text-12px md:text-14px font-semibold text-yellow">Published on</p>
+                <p className="text-base md:text-lg text-dark2 font-medium">{date}</p>
+              </div>
             </div>
-            <ArticleShareBar url={shareUrl} title={title} />
+            <ArticleShareBar url={shareUrl} title={title} downloadUrl={downloadUrl} />
           </div>
 
           {/* Article body */}
-          <div className="max-w-[720px] mx-auto">
+          <div className="max-w-227.5">
             <ArticleContent blocks={content} />
           </div>
         </div>
@@ -110,7 +122,7 @@ export default function ArticleTemplate({
       {/* Related posts */}
       {relatedPosts.length > 0 && (
         <section className="px-5 md:px-10 lg:px-20 pt-4 pb-20 bg-white">
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <div className="flex items-center justify-between mb-10">
               <h2 className="text-xl font-semibold text-dark1">
                 {relatedHeading}
@@ -132,6 +144,8 @@ export default function ArticleTemplate({
                   href={`/${post.category}/${post.slug}`}
                   variant={post.cardVariant}
                   coverColor={post.coverColor}
+                  coverSrc={post.coverSrc}
+                  comingSoon={post.comingSoon}
                   title={post.title}
                   author={post.author}
                   date={post.date}

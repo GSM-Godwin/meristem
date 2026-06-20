@@ -5,14 +5,12 @@ export default function PurposeSection() {
             Purpose
           </p>
       <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
-        {/* Left — label + heading */}
         <div>
           <h2 className="text-[36px] leading-[44px] md:text-[48px] md:leading-[60px] font-bold text-dark2">
             Families often build wealth faster than they build continuity
           </h2>
         </div>
 
-        {/* Right — supporting text */}
         <div>
           <p className="text-[18px] leading-[28px] md:text-[22px] md:leading-[32px] font-normal text-dark1">
             For many successful families, there comes a point where the

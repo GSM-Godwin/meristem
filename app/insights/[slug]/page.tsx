@@ -43,6 +43,7 @@ export default async function InsightDetailPage({ params }: InsightPageProps) {
           intro={insight.intro}
           author={insight.author}
           date={insight.date}
+          coverSrc={insight.coverSrc}
           content={insight.content}
           shareUrl={shareUrl}
           relatedPosts={related.map((r) => ({
@@ -52,6 +53,7 @@ export default async function InsightDetailPage({ params }: InsightPageProps) {
             author: r.author,
             date: r.date,
             excerpt: r.excerpt,
+            coverSrc: r.coverSrc,
             cardVariant: "insight" as const,
             category: "insights",
           }))}

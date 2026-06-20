@@ -118,6 +118,8 @@ export default function InsightsContent() {
                 href={`/publications/${pub.slug}`}
                 variant="publication"
                 coverColor={pub.coverColor}
+                coverSrc={pub.coverSrc}
+                comingSoon={pub.comingSoon}
                 title={pub.title}
                 author={pub.author}
                 date={pub.date}
@@ -140,6 +142,7 @@ export default function InsightsContent() {
                 key={insight.id}
                 href={`/insights/${insight.slug}`}
                 variant="insight"
+                coverSrc={insight.coverSrc ?? "/report.png"}
                 title={insight.title}
                 author={insight.author}
                 date={insight.date}
@@ -159,6 +162,7 @@ export default function InsightsContent() {
                 key={p.id}
                 href={`/perspectives/${p.slug}`}
                 variant="perspective"
+                coverSrc={p.coverSrc}
                 title={p.title}
                 author={p.author}
                 date={p.date}

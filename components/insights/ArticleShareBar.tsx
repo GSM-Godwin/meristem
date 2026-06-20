@@ -5,6 +5,21 @@ import { useState } from "react";
 interface ArticleShareBarProps {
   url: string;
   title: string;
+  downloadUrl?: string;
+}
+
+function DownloadIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
 }
 
 function CopyIcon() {
@@ -43,14 +58,14 @@ function SocialButton({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="w-10 h-10 flex items-center justify-center rounded-full border border-[#E9EAEB] bg-white text-[#535862] hover:text-[#181D27] hover:border-[#181D27]/20 transition-colors"
+      className="w-10 h-10 flex items-center justify-center rounded-lg border border-light2 bg-white text-neutral hover:text-[#181D27] hover:border-[#181D27]/20 transition-colors"
     >
       {children}
     </a>
   );
 }
 
-export default function ArticleShareBar({ url, title }: ArticleShareBarProps) {
+export default function ArticleShareBar({ url, title, downloadUrl }: ArticleShareBarProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -68,10 +83,21 @@ export default function ArticleShareBar({ url, title }: ArticleShareBarProps) {
 
   return (
     <div className="flex items-center gap-3 shrink-0">
+      {downloadUrl && (
+        <a
+          href={downloadUrl}
+          download
+          className="flex items-center gap-2 px-3.5 py-2 rounded-lg text-base font-semibold bg-yellow text-white hover:opacity-90 transition-opacity"
+        >
+          <DownloadIcon />
+          Download
+        </a>
+      )}
+
       <button
         type="button"
         onClick={handleCopy}
-        className="flex items-center gap-2 px-3.5 py-2.5 text-base font-semibold text-[#535862] hover:text-[#181D27] transition-colors"
+        className="flex items-center gap-2 px-3.5 py-2 rounded-lg text-base font-semibold border border-light2 bg-white text-neutral hover:text-[#181D27] hover:border-[#181D27]/20 transition-colors"
       >
         <CopyIcon />
         {copied ? "Copied!" : "Copy link"}

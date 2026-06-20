@@ -40,6 +40,8 @@ export default async function NewPostPage({
     publishDate: todayIso(),
     featured: false,
     longDescription: "",
+    fileUrl: "",
+    comingSoon: false,
     sections: [],
   };
 

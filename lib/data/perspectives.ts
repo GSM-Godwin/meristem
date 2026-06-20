@@ -3,6 +3,8 @@ import type { ContentBlock } from "@/lib/types/insight";
 
 const defaultPerspectiveContent: ContentBlock[] = [
   { type: "paragraph", text: "Mi tincidunt elit, id quisque ligula ac diam, amet. Vel etiam suspendisse morbi eleifend faucibus eget vestibulum felis. Dictum quis montes, sit sit. Tellus aliquam enim urna, etiam. Mauris posuere vulputate arcu amet, vitae nisi, tellus tincidunt." },
+
+  { type: "video", caption: "Watch the full conversation" },
   { type: "heading", text: "Key takeaways" },
   { type: "paragraph", text: "Eget quis mi enim, leo lacinia pharetra, semper. Eget in volutpat mollis at volutpat lectus velit, sed auctor. Porttitor fames arcu quis fusce augue enim. Quis at habitant diam at. Suscipit tristique risus, at donec." },
   { type: "image-row", captions: ["", ""] },
@@ -30,6 +32,8 @@ const perspectiveTemplates = [
   },
 ];
 
+const perspectiveCovers = ["/pers1.png", "/pers2.jpg", "/pers3.png"];
+
 function buildPerspectives(count: number): Perspective[] {
   return Array.from({ length: count }, (_, index) => {
     const template = perspectiveTemplates[index % perspectiveTemplates.length];
@@ -42,6 +46,7 @@ function buildPerspectives(count: number): Perspective[] {
       author: "Brand & Comms Team",
       date: "28 Mar 2024",
       duration: template.duration,
+      coverSrc: perspectiveCovers[index % perspectiveCovers.length],
       intro: "Starting a community doesn't need to be complicated. This conversation explores how families can foster meaningful dialogue across generations and steward shared purpose.",
       content: defaultPerspectiveContent,
     };

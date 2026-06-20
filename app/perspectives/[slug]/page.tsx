@@ -30,7 +30,6 @@ export default async function PerspectiveDetailPage({ params }: PerspectivePageP
 
   const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/perspectives/${perspective.slug}`;
 
-  // Pick 3 other perspectives as related
   const related = perspectives.filter((p) => p.slug !== slug).slice(0, 3);
 
   return (

@@ -101,6 +101,10 @@ function buildPublications(count: number): Publication[] {
       date: "28 Mar 2024",
       category: template.category,
       coverColor: coverColors[index % coverColors.length],
+      coverSrc: "/report.png",
+      
+      fileUrl: "/sample-report.pdf",
+      comingSoon: index === 0,
       content: defaultPublicationContent,
     };
   });

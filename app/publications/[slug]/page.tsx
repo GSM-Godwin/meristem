@@ -30,7 +30,6 @@ export default async function PublicationDetailPage({ params }: PublicationPageP
 
   const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/publications/${publication.slug}`;
 
-  // Pick 3 other publications as related
   const related = publications.filter((p) => p.slug !== slug).slice(0, 3);
 
   return (
@@ -45,8 +44,11 @@ export default async function PublicationDetailPage({ params }: PublicationPageP
           intro={publication.intro}
           author={publication.author}
           date={publication.date}
+          coverSrc={publication.coverSrc}
           content={publication.content}
           shareUrl={shareUrl}
+          fileUrl={publication.fileUrl}
+          comingSoon={publication.comingSoon}
           relatedPosts={related.map((r) => ({
             id: r.id,
             slug: r.slug,
@@ -55,6 +57,8 @@ export default async function PublicationDetailPage({ params }: PublicationPageP
             date: r.date,
             excerpt: r.excerpt,
             coverColor: r.coverColor,
+            coverSrc: r.coverSrc,
+            comingSoon: r.comingSoon,
             cardVariant: "publication" as const,
             category: "publications",
           }))}

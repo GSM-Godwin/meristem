@@ -38,7 +38,6 @@ export default function InsightsAllContent() {
         </div>
       </section>
 
-      {/* Listing */}
       <section className="px-5 md:px-10 lg:px-20 pb-20">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-xl font-semibold text-dark1 mb-10">

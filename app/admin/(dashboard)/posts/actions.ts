@@ -37,10 +37,6 @@ export async function deletePostAction(formData: FormData) {
 
 type SaveResult = { error: string };
 
-/**
- * Build the nested `sections.create` payload from form state.
- * Section order = array index; block order = array index within the section.
- */
 function buildSectionsCreate(
   sections: PostFormValues["sections"]
 ): Prisma.SectionCreateWithoutPostInput[] {
@@ -69,12 +65,22 @@ function buildSectionsCreate(
                 order: blockIndex,
                 text: null,
                 imageUrl: block.imageUrl,
+                videoUrl: null,
+              }
+            : block.type === "VIDEO"
+            ? {
+                type: "VIDEO" as const,
+                order: blockIndex,
+                text: null,
+                imageUrl: null,
+                videoUrl: block.videoUrl,
               }
             : {
                 type: "PARAGRAPH" as const,
                 order: blockIndex,
                 text: block.text.trim(),
                 imageUrl: null,
+                videoUrl: null,
               }
         ),
       },
@@ -101,10 +107,27 @@ function validate(values: PostFormValues): string | null {
         if (block.type === "IMAGE" && !block.imageUrl) {
           return `Section ${i + 1}, block ${j + 1}: image not uploaded.`;
         }
+        if (block.type === "VIDEO" && !block.videoUrl) {
+          return `Section ${i + 1}, block ${j + 1}: video not uploaded.`;
+        }
       }
     } else {
       if (!section.quoteText.trim()) {
         return `Section ${i + 1}: quote text is required.`;
+      }
+    }
+  }
+
+  if (values.status === "PUBLISHED") {
+    if (values.category === "PUBLICATION" && !values.fileUrl.trim()) {
+      return "A PDF is required to publish a Publication. Upload one, or save as a draft.";
+    }
+    if (values.category === "PERSPECTIVE") {
+      const hasVideo = values.sections.some(
+        (s) => s.type === "CONTENT" && s.blocks.some((b) => b.type === "VIDEO")
+      );
+      if (!hasVideo) {
+        return "A Perspective must include at least one video block to be published. Add a video, or save as a draft.";
       }
     }
   }
@@ -123,6 +146,8 @@ export async function savePostAction(
 
   const publishDate = new Date(values.publishDate);
 
+  const isPublication = values.category === "PUBLICATION";
+
   const baseData = {
     title: values.title.trim(),
     shortDescription: values.shortDescription.trim(),
@@ -132,6 +157,8 @@ export async function savePostAction(
     category: values.category,
     status: values.status,
     featured: values.featured,
+    fileUrl: isPublication ? values.fileUrl.trim() || null : null,
+    comingSoon: isPublication ? values.comingSoon : false,
     publishDate,
   };
 
@@ -141,20 +168,16 @@ export async function savePostAction(
 
   try {
     if (values.id) {
-      // ── Edit mode ───────────────────────────────────────────────────────
       const existing = await prisma.post.findUnique({
         where: { id: values.id },
         select: { id: true, category: true },
       });
       if (!existing) return { error: "Post not found." };
 
-      // Safest approach: wipe child rows and rewrite from form state.
-      // Deleting Sections cascades to SectionBlocks (onDelete: Cascade).
       await prisma.$transaction([
         prisma.section.deleteMany({ where: { postId: values.id } }),
         prisma.post.update({
           where: { id: values.id },
-          // Slug is intentionally NOT updated — it must remain stable once created.
           data: {
             ...baseData,
             sections: { create: sectionsCreate },
@@ -164,7 +187,6 @@ export async function savePostAction(
 
       category = existing.category;
     } else {
-      // ── Create mode ─────────────────────────────────────────────────────
       const slug = await generateUniqueSlug(values.title);
 
       await prisma.post.create({
@@ -180,9 +202,7 @@ export async function savePostAction(
     return { error: "Something went wrong while saving. Please try again." };
   }
 
-  // Revalidate the admin list page so the change shows immediately.
   revalidatePath(`/admin/${adminSlugFor(category)}`);
 
-  // On success, navigate back to the relevant admin list.
   redirect(`/admin/${adminSlugFor(category)}`);
 }

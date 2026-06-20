@@ -11,13 +11,14 @@ export interface Publication {
   slug: string;
   title: string;
   excerpt: string;
-  /** Intro paragraph shown at the top of the detail page. */
   intro: string;
   author: string;
   date: string;
   category: PublicationCategory;
   coverColor: string;
-  /** Article body — swappable for real CMS content when backend resumes. */
+  coverSrc?: string;
+  fileUrl?: string;
+  comingSoon?: boolean;
   content: ContentBlock[];
 }
 

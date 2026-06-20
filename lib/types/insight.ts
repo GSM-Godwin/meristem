@@ -6,10 +6,19 @@ export type InsightCategory =
   | "the-future-of-family-wealth";
 
 export type ContentBlock =
+  | { type: "long-description"; text: string }
   | { type: "paragraph"; text: string }
   | { type: "heading"; text: string }
-  | { type: "image"; caption?: string }
-  | { type: "image-row"; captions?: [string, string] }
+  | { type: "image"; src?: string; alt?: string; caption?: string }
+  | {
+      type: "image-row";
+      images?: [
+        { src?: string; alt?: string; caption?: string },
+        { src?: string; alt?: string; caption?: string },
+      ];
+      captions?: [string, string];
+    }
+  | { type: "video"; src?: string; caption?: string }
   | { type: "blockquote"; quote: string; attribution: string };
 
 export interface Insight {
@@ -22,6 +31,7 @@ export interface Insight {
   date: string;
   category: InsightCategory;
   featured?: boolean;
+  coverSrc?: string;
   content: ContentBlock[];
 }
 

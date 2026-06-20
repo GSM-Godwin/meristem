@@ -30,7 +30,10 @@ const defaultContent: ContentBlock[] = [
   },
   {
     type: "image-row",
-    captions: ["Image caption goes here", "Image caption goes here"],
+    images: [
+      { caption: "Image caption goes here" },
+      { caption: "Image caption goes here" },
+    ],
   },
   {
     type: "heading",
@@ -46,46 +49,26 @@ const defaultContent: ContentBlock[] = [
   },
 ];
 
+const introText =
+  "I was in a gathering of young professionals and during lunch found myself at a table where some young people were in an intense argument about writing their Will. One said, \"I have only worked for 6 years and have not accumulated enough assets\", whilst another said, \"Is it my MacBook and iPhone I will put in a Will\". As a financial planner passionate about speaking to people about wealth creation and succession planning, I could not resist joining in the conversation.";
+
 const willArticleContent: ContentBlock[] = [
+  {
+    type: "long-description",
+    text: "Excitedly, I asked, \"What if I told you that you could have a Will regardless of the size of assets you own?\" I shared a real-life story — the story of Ms. Matilda my neighbour, who wrote her Will when she attained the age of 25 years. The only assets she had to her name were three savings accounts in commercial banks and her Retirement Savings Account.",
+  },
   {
     type: "heading",
     text: "Introduction",
   },
   {
     type: "paragraph",
-    text: "Mi tincidunt elit, id quisque ligula ac diam, amet. Vel etiam suspendisse morbi eleifend faucibus eget vestibulum felis. Dictum quis montes, sit sit. Tellus aliquam enim urna, etiam. Mauris posuere vulputate arcu amet, vitae nisi, tellus tincidunt. At feugiat sapien varius id.",
+    text: introText,
   },
   {
-    type: "paragraph",
-    text: "Eget quis mi enim, leo lacinia pharetra, semper. Eget in volutpat mollis at volutpat lectus velit, sed auctor. Porttitor fames arcu quis fusce augue enim. Quis at habitant diam at. Suscipit tristique risus, at donec. In turpis vel et quam imperdiet. Ipsum molestie aliquet sodales id est ac volutpat.",
-  },
-  {
-    type: "heading",
-    text: "Software and tools",
-  },
-  {
-    type: "paragraph",
-    text: "Mi tincidunt elit, id quisque ligula ac diam, amet. Vel etiam suspendisse morbi eleifend faucibus eget vestibulum felis. Dictum quis montes, sit sit. Tellus aliquam enim urna, etiam. Mauris posuere vulputate arcu amet, vitae nisi, tellus tincidunt. At feugiat sapien varius id.",
-  },
-  {
-    type: "image-row",
-    captions: ["Image caption goes here", "Image caption goes here"],
-  },
-  {
-    type: "heading",
-    text: "Other resources",
-  },
-  {
-    type: "paragraph",
-    text: "Sagittis et eu at elementum, quis in. Proin praesent volutpat egestas sociis sit lorem nunc nunc sit. Eget diam curabitur mi ac. Auctor rutrum lacus malesuada massa ornare et. Vulputate consectetur ac ultrices at diam dui eget fringilla tincidunt. Arcu sit elementum semper cum sit in.",
-  },
-  {
-    type: "heading",
-    text: "Simple Will",
-  },
-  {
-    type: "paragraph",
-    text: "Lectus id duis vitae porttitor enim gravida morbi. Eu turpis posuere semper feugiat volutpat elit, ultrices suspendisse. Auctor vel in vitae placerat. Suspendisse maecenas cursus nibh nisi pharetra erat, amet. Penatibus nunc dui pellentesque sed sed duis. Ullamcorper in egestas eu, accumsan aliquet sed sem.",
+    type: "image",
+    src: "/intro.png",
+    alt: "Young professionals at a lunch gathering",
   },
   {
     type: "blockquote",
@@ -95,15 +78,11 @@ const willArticleContent: ContentBlock[] = [
   },
   {
     type: "paragraph",
-    text: "Ipsum sit mattis nulla quam nulla. Gravida id gravida ac enim mauris id. Non pellentesque congue eget consectetur turpis. Sapien, dictum molestie sem tempor. Diam elit, orci, tincidunt aenean tempus. Quis velit eget ut tortor tellus. Sed vel, congue felis elit erat nam nibh orci.",
-  },
-  {
-    type: "image",
-    caption: "Image caption goes here",
+    text: introText,
   },
   {
     type: "heading",
-    text: "Comprehensive Will",
+    text: "Software and tools",
   },
   {
     type: "paragraph",
@@ -111,15 +90,36 @@ const willArticleContent: ContentBlock[] = [
   },
   {
     type: "heading",
-    text: "Conclusion",
+    text: "Simple Will",
   },
   {
     type: "paragraph",
-    text: "Morbi sed imperdiet in ipsum, adipiscing elit dui lectus. Tellus id scelerisque est ultricies ultricies. Duis est sit sed leo nisl, blandit elit sagittis. Quisque tristique consequat quam sed. Nisl at scelerisque amet nulla purus habitasse.",
+    text: "The Simple Will, true to its name is simple. It is for those whose estate planning needs are not complex. With your cash in the bank, Retirement Savings Account (RSA) and equities (even those processed through our Meritrade App) a Simple Will can be prepared for you and lodged at the Probate Registry. You can say this is us democratising the Will service. This service is available for everyone regardless of status or pocket/asset size. We pledge never again will it be said that our clients/prospects cannot put a Will in place because of the cost effect.",
+  },
+  {
+    type: "image",
+    src: "/simple-will.png",
+    alt: "Simple Will illustration",
   },
   {
     type: "paragraph",
-    text: "Nunc sed faucibus bibendum feugiat sed interdum. Ipsum egestas condimentum mi massa. In tincidunt pharetra consectetur sed duis facilisis metus. Etiam egestas in nec sed et. Quis lobortis at sit dictum eget nibh tortor commodo.",
+    text: "Lectus leo massa amet posuere. Malesuada mattis non convallis quisque. Libero sit et imperdiet bibendum quisque dictum vestibulum in non. Pretium ultricies tempor non est diam. Enim ut enim amet amet integer cursus. Sit ac commodo pretium sed etiam turpis suspendisse at.",
+  },
+  {
+    type: "paragraph",
+    text: "Tristique odio senectus nam posuere ornare leo metus, ultricies. Blandit duis ultricies vulputate morbi feugiat cras placerat elit. Aliquam tellus lorem sed ac. Montes, sed mattis pellentesque suscipit accumsan. Cursus viverra aenean magna risus elementum faucibus molestie pellentesque. Arcu ultricies sed mauris vestibulum.",
+  },
+  {
+    type: "heading",
+    text: "Comprehensive Will",
+  },
+  {
+    type: "paragraph",
+    text: "This is for those whose Estate planning needs are a bit complex, whether by assets owned or instructions. Once you want your Will to cover more than cash and RSA, then the comprehensive will be an apposite service. This covers your liquid assets like savings accounts, investment accounts, fixed deposits, unit trust funds, Shares and Bonds. It also covers illiquid assets like Real Estate properties, collectables such as vehicles, Art, antiques, jewellery, digital Assets etc.",
+  },
+  {
+    type: "paragraph",
+    text: "By way of testamentary trust, you can also leave trust instructions in your Will, appoint guardians for your minors/under-aged children, etc.",
   },
 ];
 
@@ -136,6 +136,7 @@ export const insights: Insight[] = [
     date: "19th Oct 2021",
     category: "family-continuity",
     featured: true,
+    coverSrc: "/simple-vs-comp.png",
     content: willArticleContent,
   },
   {
@@ -177,6 +178,7 @@ export const insights: Insight[] = [
     author: "Brandon Johnson",
     date: "19 Oct 2021",
     category: "founder-psychology",
+    coverSrc: "/more1.png",
     content: defaultContent,
   },
   {
@@ -190,6 +192,7 @@ export const insights: Insight[] = [
     author: "Brandon Johnson",
     date: "19 Oct 2021",
     category: "founder-psychology",
+    coverSrc: "/more2.png",
     content: defaultContent,
   },
   {
@@ -203,6 +206,7 @@ export const insights: Insight[] = [
     author: "Brandon Johnson",
     date: "19 Oct 2021",
     category: "next-generation-leadership",
+    coverSrc: "/more3.png",
     content: defaultContent,
   },
   {

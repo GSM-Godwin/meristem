@@ -53,7 +53,6 @@ export default function LegalDocument({ sections }: LegalDocumentProps) {
     <section className="px-5 md:px-10 lg:px-20 py-10 md:py-20">
       <div className="max-w-6xl mx-auto">
 
-        {/* ── Mobile: collapsible table of contents ─────────────────── */}
         <div className="md:hidden mb-8">
           <button
             type="button"
@@ -83,7 +82,6 @@ export default function LegalDocument({ sections }: LegalDocumentProps) {
           )}
         </div>
 
-        {/* ── Desktop: sidebar grid ──────────────────────────────────── */}
         <div className="hidden md:grid md:grid-cols-[240px_1fr] md:gap-16">
           <nav className="flex flex-col gap-4 sticky top-36 self-start">
             {sections.map((section) => (
@@ -105,7 +103,6 @@ export default function LegalDocument({ sections }: LegalDocumentProps) {
           </div>
         </div>
 
-        {/* ── Mobile: full-width content ─────────────────────────────── */}
         <div className="md:hidden flex flex-col gap-10">
           {sections.map((section) => (
             <ContentSection key={section.id} section={section} />
@@ -117,8 +114,6 @@ export default function LegalDocument({ sections }: LegalDocumentProps) {
   );
 }
 
-// Extracted to avoid repeating JSX — IDs are unique because
-// only one of the two grids is rendered at a time (CSS display:none).
 function ContentSection({ section }: { section: LegalSection }) {
   return (
     <article id={section.id} className="scroll-mt-36">

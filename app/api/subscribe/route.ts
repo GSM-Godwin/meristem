@@ -1,10 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// Mailchimp env vars — set these in .env:
-//   MAILCHIMP_API_KEY       e.g.  abc123...def-us6
-//   MAILCHIMP_AUDIENCE_ID   e.g.  a1b2c3d4e5
-//   MAILCHIMP_SERVER_PREFIX e.g.  us6
-
 export async function POST(req: NextRequest) {
   const { email } = await req.json().catch(() => ({}));
 
@@ -20,7 +15,6 @@ export async function POST(req: NextRequest) {
   const serverPrefix = process.env.MAILCHIMP_SERVER_PREFIX;
 
   if (!apiKey || !audienceId || !serverPrefix) {
-    // Config missing — fail gracefully in dev so the form still works locally
     console.warn("Mailchimp env vars not configured.");
     return NextResponse.json({ ok: true });
   }
@@ -38,7 +32,6 @@ export async function POST(req: NextRequest) {
 
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    // 400 with title "Member Exists" is not really an error — treat it as success
     if (body?.title === "Member Exists") {
       return NextResponse.json({ ok: true });
     }

@@ -3,7 +3,6 @@ import Link from "next/link";
 import logo from "@/assets/logo.png";
 import PlayButton from "@/components/perspectives/PlayButton";
 
-// ─── Arrow icon ──────────────────────────────────────────────────────────────
 function ArrowUpRight({ className = "" }: { className?: string }) {
   return (
     <svg
@@ -24,28 +23,27 @@ function ArrowUpRight({ className = "" }: { className?: string }) {
   );
 }
 
-// ─── Types ────────────────────────────────────────────────────────────────────
 export type CardVariant = "publication" | "insight" | "perspective";
 
 export interface PostCardProps {
   href: string;
   variant: CardVariant;
-  /** Applies a background color to the card thumbnail (publications). */
   coverColor?: string;
+  coverSrc?: string;
+  comingSoon?: boolean;
   title: string;
   author: string;
   date: string;
-  /** Only rendered for perspectives. */
   duration?: string;
-  /** Optional — perspectives typically omit this. */
   excerpt?: string;
 }
 
-// ─── Component ────────────────────────────────────────────────────────────────
 export default function PostCard({
   href,
   variant,
   coverColor,
+  coverSrc,
+  comingSoon,
   title,
   author,
   date,
@@ -68,23 +66,25 @@ export default function PostCard({
         style={{ backgroundColor: bgColor }}
       >
         <Image
-          src={logo}
+          src={coverSrc ?? logo}
           alt={title}
           fill
-          className="object-contain p-10"
+          className={coverSrc ? "object-cover" : "object-contain p-10"}
         />
         {variant === "perspective" && <PlayButton />}
+        {comingSoon && (
+          <span className="absolute top-3 left-3 z-10 rounded-full bg-dark2/85 text-white text-xs font-semibold px-3 py-1 backdrop-blur-sm">
+            Coming soon
+          </span>
+        )}
       </div>
 
-      {/* Card body */}
       <div className="flex flex-col gap-6">
-        {/* Byline */}
         <p className={`text-sm font-semibold text-yellow {metaColor}`}>
           {author}&nbsp;&bull;&nbsp;{date}
           {duration ? ` (${duration})` : ""}
         </p>
 
-        {/* Title + arrow */}
         <div className="flex items-start justify-between gap-3">
           <h3 className="text-base md:text-[20p] lg:text-[24px] font-semibold text-dark2 group-hover:text-yellow transition-colors leading-snug">
             {title}
@@ -92,7 +92,6 @@ export default function PostCard({
           <ArrowUpRight className="text-dark2 mt-0.5" />
         </div>
 
-        {/* Excerpt */}
         {excerpt && (
           <p className="text-sm md:text-[16px] text-neutral leading-tight line-clamp-2">
             {excerpt}
