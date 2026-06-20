@@ -93,7 +93,7 @@ export default function ArticleTemplate({
               src={coverSrc ?? logo}
               alt={title}
               fill
-              className={coverSrc ? "object-cover" : "object-contain p-16 md:p-24"}
+              className={coverSrc ? "object-contain" : "object-contain p-16 md:p-24"}
               priority
             />
           </div>
