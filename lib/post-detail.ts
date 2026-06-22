@@ -3,6 +3,7 @@ import { connection } from "next/server";
 import { prisma } from "@/lib/prisma";
 import type { PostCategory } from "@prisma/client";
 import type { ContentBlock } from "@/lib/types/insight";
+import type { RichTextNode } from "@/lib/rich-text-types";
 import { formatPostDate } from "@/lib/post-cards";
 
 export interface PostDetail {
@@ -57,7 +58,10 @@ export const getPostDetailBySlug = cache(
       for (const block of section.blocks) {
         switch (block.type) {
           case "PARAGRAPH":
-            content.push({ type: "paragraph", text: block.text ?? "" });
+            content.push({
+              type: "paragraph",
+              contentJson: block.contentJson as RichTextNode | null,
+            });
             break;
           case "IMAGE":
             content.push({ type: "image", src: block.imageUrl ?? undefined });

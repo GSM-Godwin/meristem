@@ -1,7 +1,8 @@
 import type { PostCategory, PostStatus } from "@prisma/client";
+import type { RichTextNode } from "@/lib/rich-text-types";
 
 export type BlockDraft =
-  | { key: string; type: "PARAGRAPH"; text: string; imageUrl: ""; videoUrl: "" }
+  | { key: string; type: "PARAGRAPH"; contentJson: RichTextNode; imageUrl: ""; videoUrl: "" }
   | { key: string; type: "IMAGE"; text: ""; imageUrl: string; videoUrl: "" }
   | { key: string; type: "VIDEO"; text: ""; imageUrl: ""; videoUrl: string };
 

@@ -1,3 +1,5 @@
+import type { RichTextNode } from "@/lib/rich-text-types";
+
 export type InsightCategory =
   | "founder-psychology"
   | "family-continuity"
@@ -7,7 +9,7 @@ export type InsightCategory =
 
 export type ContentBlock =
   | { type: "long-description"; text: string }
-  | { type: "paragraph"; text: string }
+  | { type: "paragraph"; contentJson?: RichTextNode | null; text?: string }
   | { type: "heading"; text: string }
   | { type: "image"; src?: string; alt?: string; caption?: string }
   | {

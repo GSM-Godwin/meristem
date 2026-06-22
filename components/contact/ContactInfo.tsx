@@ -69,22 +69,22 @@ const contactItems = [
   },
   {
     icon: MapPinIcon,
-    label: "Address",
+    label: "Head Office",
     value: "20A, Gerrard Road, Ikoyi, Lagos, Nigeria.",
   },
-  {
-    icon: MapPinIcon,
-    label: "Address",
-    value:
-      "1 Opobo Crescent, Opposite Aladumo Schools, GRA Junction, Port Harcourt, Rivers State, Nigeria. (07080647497)",
-  },
+  // {
+  //   icon: MapPinIcon,
+  //   label: "Address",
+  //   value:
+  //     "1 Opobo Crescent, Opposite Aladumo Schools, GRA Junction, Port Harcourt, Rivers State, Nigeria. (07080647497)",
+  // },
 ];
 
 export default function ContactInfo() {
   return (
     <div className="flex flex-col gap-8">
       <div>
-        <h2 className="text-[30px] font-semibold text-[#181D27] leading-[38px] mb-4">
+        <h2 className="text-[30px] font-semibold text-[#181D27] leading-9.5 mb-4">
           Every family&apos;s journey is different.
         </h2>
         <p className="text-base text-[#535862] leading-7">

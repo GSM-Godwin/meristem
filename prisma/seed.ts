@@ -1,5 +1,6 @@
 import { PrismaClient, PostCategory, PostStatus, SectionType, BlockType } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { paragraphJson } from "./paragraph-json";
 
 const prisma = new PrismaClient();
 
@@ -44,7 +45,9 @@ async function main() {
               create: [
                 {
                   type: BlockType.PARAGRAPH,
-                  text: "Mi tincidunt elit, id quisque ligula ac diam, amet. Vel etiam suspendisse morbi eleifend faucibus eget vestibulum felis. Dictum quis montes, sit sit. Tellus aliquam enim urna, etiam. Mauris posuere vulputate arcu amet, vitae nisi, tellus tincidunt.",
+                  contentJson: paragraphJson(
+                    "Mi tincidunt elit, id quisque ligula ac diam, amet. Vel etiam suspendisse morbi eleifend faucibus eget vestibulum felis. Dictum quis montes, sit sit. Tellus aliquam enim urna, etiam. Mauris posuere vulputate arcu amet, vitae nisi, tellus tincidunt."
+                  ),
                   order: 0,
                 },
                 {
@@ -54,7 +57,9 @@ async function main() {
                 },
                 {
                   type: BlockType.PARAGRAPH,
-                  text: "Eget quis mi enim, leo lacinia pharetra, semper. Eget in volutpat mollis at volutpat lectus velit, sed auctor. Porttitor fames arcu quis fusce augue enim. Quis at habitant diam at.",
+                  contentJson: paragraphJson(
+                    "Eget quis mi enim, leo lacinia pharetra, semper. Eget in volutpat mollis at volutpat lectus velit, sed auctor. Porttitor fames arcu quis fusce augue enim. Quis at habitant diam at."
+                  ),
                   order: 2,
                 },
               ],
@@ -75,7 +80,9 @@ async function main() {
               create: [
                 {
                   type: BlockType.PARAGRAPH,
-                  text: "Morbi sed imperdiet in ipsum, adipiscing elit dui lectus. Tellus id scelerisque est ultricies ultricies. Duis est sit sed leo nisl, blandit elit sagittis. Quisque tristique consequat quam sed.",
+                  contentJson: paragraphJson(
+                    "Morbi sed imperdiet in ipsum, adipiscing elit dui lectus. Tellus id scelerisque est ultricies ultricies. Duis est sit sed leo nisl, blandit elit sagittis. Quisque tristique consequat quam sed."
+                  ),
                   order: 0,
                 },
               ],
@@ -114,7 +121,9 @@ async function main() {
               create: [
                 {
                   type: BlockType.PARAGRAPH,
-                  text: "Community is not accidental. The families that sustain connection across generations do so because they build intentional structures — regular gatherings, shared language, and explicit agreements about how decisions get made.",
+                  contentJson: paragraphJson(
+                    "Community is not accidental. The families that sustain connection across generations do so because they build intentional structures — regular gatherings, shared language, and explicit agreements about how decisions get made."
+                  ),
                   order: 0,
                 },
               ],
@@ -159,7 +168,9 @@ async function main() {
               create: [
                 {
                   type: BlockType.PARAGRAPH,
-                  text: "Every family enterprise that successfully passes wealth across generations does so by mastering three disciplines: governance (who decides what and how), investment policy (how the capital is managed and grown), and family communication (how members stay aligned and informed).",
+                  contentJson: paragraphJson(
+                    "Every family enterprise that successfully passes wealth across generations does so by mastering three disciplines: governance (who decides what and how), investment policy (how the capital is managed and grown), and family communication (how members stay aligned and informed)."
+                  ),
                   order: 0,
                 },
                 {

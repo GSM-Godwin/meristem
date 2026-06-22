@@ -5,10 +5,10 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { generateUniqueSlug } from "@/lib/slug";
-import { sendInsightCampaign } from "@/lib/mailchimp";
-import { siteUrl } from "@/lib/email";
+import { postPublicUrl, sendPostCampaign } from "@/lib/mailchimp";
 import type { PostFormValues } from "@/lib/types/post-form";
 import type { PostCategory, Prisma } from "@prisma/client";
+import { isRichTextEmpty, toPlainRichText } from "@/lib/rich-text";
 
 function adminSlugFor(category: PostCategory): string {
   return category === "INSIGHT"
@@ -72,7 +72,7 @@ function buildSectionsCreate(
     return {
       type: "CONTENT",
       order: sectionIndex,
-      heading: section.heading.trim(),
+      heading: section.heading.trim() || null,
       quoteText: null,
       attribution: null,
       blocks: {
@@ -81,7 +81,6 @@ function buildSectionsCreate(
             ? {
                 type: "IMAGE" as const,
                 order: blockIndex,
-                text: null,
                 imageUrl: block.imageUrl,
                 videoUrl: null,
               }
@@ -89,14 +88,13 @@ function buildSectionsCreate(
             ? {
                 type: "VIDEO" as const,
                 order: blockIndex,
-                text: null,
                 imageUrl: null,
                 videoUrl: block.videoUrl,
               }
             : {
                 type: "PARAGRAPH" as const,
                 order: blockIndex,
-                text: block.text.trim(),
+                contentJson: toPlainRichText(block.contentJson) as Prisma.InputJsonValue,
                 imageUrl: null,
                 videoUrl: null,
               }
@@ -115,11 +113,8 @@ function validate(values: PostFormValues): string | null {
 
   for (const [i, section] of values.sections.entries()) {
     if (section.type === "CONTENT") {
-      if (!section.heading.trim()) {
-        return `Section ${i + 1}: heading is required.`;
-      }
       for (const [j, block] of section.blocks.entries()) {
-        if (block.type === "PARAGRAPH" && !block.text.trim()) {
+        if (block.type === "PARAGRAPH" && isRichTextEmpty(block.contentJson)) {
           return `Section ${i + 1}, block ${j + 1}: paragraph text is empty.`;
         }
         if (block.type === "IMAGE" && !block.imageUrl) {
@@ -184,7 +179,7 @@ export async function savePostAction(
 
   let category: PostCategory = values.category;
 
-  let newlyPublishedInsightSlug: string | null = null;
+  let newlyPublishedSlug: string | null = null;
   let revalidateSlug = "";
   let priorCategory: PostCategory | undefined;
 
@@ -211,12 +206,8 @@ export async function savePostAction(
       revalidateSlug = existing.slug;
       priorCategory = existing.category;
 
-      if (
-        values.category === "INSIGHT" &&
-        values.status === "PUBLISHED" &&
-        existing.status !== "PUBLISHED"
-      ) {
-        newlyPublishedInsightSlug = existing.slug;
+      if (values.status === "PUBLISHED" && existing.status !== "PUBLISHED") {
+        newlyPublishedSlug = existing.slug;
       }
     } else {
       const slug = await generateUniqueSlug(values.title);
@@ -230,8 +221,8 @@ export async function savePostAction(
         },
       });
 
-      if (values.category === "INSIGHT" && values.status === "PUBLISHED") {
-        newlyPublishedInsightSlug = slug;
+      if (values.status === "PUBLISHED") {
+        newlyPublishedSlug = slug;
       }
     }
   } catch (err) {
@@ -239,11 +230,13 @@ export async function savePostAction(
     return { error: "Something went wrong while saving. Please try again." };
   }
 
-  if (newlyPublishedInsightSlug) {
-    await sendInsightCampaign({
+  if (newlyPublishedSlug) {
+    await sendPostCampaign({
+      category: values.category,
       title: baseData.title,
       shortDescription: baseData.shortDescription,
-      url: `${siteUrl()}/insights/${newlyPublishedInsightSlug}`,
+      featuredImage: baseData.featuredImage,
+      url: postPublicUrl(values.category, newlyPublishedSlug),
     });
   }
 

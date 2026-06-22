@@ -4,6 +4,8 @@ import { prisma } from "@/lib/prisma";
 import AdminTopbar from "@/components/admin/AdminTopbar";
 import PostForm from "@/components/admin/PostForm";
 import type { PostFormValues, SectionDraft } from "@/lib/types/post-form";
+import { EMPTY_DOC } from "@/lib/rich-text";
+import type { RichTextNode } from "@/lib/rich-text-types";
 
 export default async function EditPostPage({
   params,
@@ -49,7 +51,13 @@ export default async function EditPostPage({
           ? { key: b.id, type: "IMAGE", text: "", imageUrl: b.imageUrl ?? "", videoUrl: "" }
           : b.type === "VIDEO"
           ? { key: b.id, type: "VIDEO", text: "", imageUrl: "", videoUrl: b.videoUrl ?? "" }
-          : { key: b.id, type: "PARAGRAPH", text: b.text ?? "", imageUrl: "", videoUrl: "" }
+          : {
+              key: b.id,
+              type: "PARAGRAPH",
+              contentJson: (b.contentJson as RichTextNode | null) ?? EMPTY_DOC,
+              imageUrl: "",
+              videoUrl: "",
+            }
       ),
     };
   });

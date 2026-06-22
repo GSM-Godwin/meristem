@@ -1,6 +1,7 @@
 import Image from "next/image";
 import logo from "@/assets/logo.png";
 import type { ContentBlock } from "@/lib/types/insight";
+import { renderRichText } from "@/lib/renderRichText";
 
 interface ArticleImageProps {
   src?: string;
@@ -95,12 +96,9 @@ export default function ArticleContent({ blocks }: { blocks: ContentBlock[] }) {
 
           case "paragraph":
             return (
-              <p
-                key={index}
-                className="text-[16px] text-neutral leading-6"
-              >
-                {block.text}
-              </p>
+              <div key={index}>
+                {renderRichText(block.contentJson ?? block.text)}
+              </div>
             );
 
           case "heading":

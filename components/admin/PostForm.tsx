@@ -4,9 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import ImageUpload from "./ImageUpload";
 import FileUpload from "./FileUpload";
+import RichTextEditor from "./RichTextEditor";
 import { savePostAction } from "@/app/admin/(dashboard)/posts/actions";
 import type { PostFormValues } from "@/lib/types/post-form";
 import type { PostCategory } from "@prisma/client";
+import { EMPTY_DOC } from "@/lib/rich-text";
+import type { RichTextNode } from "@/lib/rich-text-types";
 
 interface PostFormProps {
   initialValues: PostFormValues;
@@ -107,7 +110,7 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
         if (s.key !== sectionKey || s.type !== "CONTENT") return s;
         const block =
           type === "PARAGRAPH"
-            ? ({ key: newKey(), type: "PARAGRAPH", text: "", imageUrl: "", videoUrl: "" } as const)
+            ? ({ key: newKey(), type: "PARAGRAPH", contentJson: EMPTY_DOC, imageUrl: "", videoUrl: "" } as const)
             : type === "IMAGE"
             ? ({ key: newKey(), type: "IMAGE", text: "", imageUrl: "", videoUrl: "" } as const)
             : ({ key: newKey(), type: "VIDEO", text: "", imageUrl: "", videoUrl: "" } as const);
@@ -127,7 +130,11 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
     }));
   }
 
-  function updateBlockText(sectionKey: string, blockKey: string, text: string) {
+  function updateBlockContentJson(
+    sectionKey: string,
+    blockKey: string,
+    contentJson: RichTextNode
+  ) {
     setValues((prev) => ({
       ...prev,
       sections: prev.sections.map((s) =>
@@ -135,7 +142,7 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
           ? {
               ...s,
               blocks: s.blocks.map((b) =>
-                b.key === blockKey && b.type === "PARAGRAPH" ? { ...b, text } : b
+                b.key === blockKey && b.type === "PARAGRAPH" ? { ...b, contentJson } : b
               ),
             }
           : s
@@ -204,7 +211,9 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
     }
 
     setSaving(true);
-    const result = await savePostAction(values);
+    const result = await savePostAction(
+      JSON.parse(JSON.stringify(values)) as PostFormValues
+    );
     if (result?.error) {
       setError(result.error);
       setSaving(false);
@@ -501,9 +510,7 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
               </div>
 
               <div>
-                <label className={labelClass}>
-                  Heading <span className="text-red-500">*</span>
-                </label>
+                <label className={labelClass}>Heading</label>
                 <input
                   type="text"
                   className={inputClass}
@@ -538,14 +545,11 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
                       </div>
 
                       {block.type === "PARAGRAPH" ? (
-                        <textarea
-                          rows={3}
-                          className={inputClass}
-                          value={block.text}
-                          onChange={(e) =>
-                            updateBlockText(section.key, block.key, e.target.value)
+                        <RichTextEditor
+                          value={block.contentJson}
+                          onChange={(contentJson) =>
+                            updateBlockContentJson(section.key, block.key, contentJson)
                           }
-                          placeholder="Write a paragraph…"
                         />
                       ) : block.type === "IMAGE" ? (
                         <ImageUpload
