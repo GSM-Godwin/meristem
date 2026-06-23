@@ -377,6 +377,7 @@ export default function PostForm({ initialValues, lockCategory, mode }: PostForm
                 kind="pdf"
                 value={values.fileUrl}
                 onChange={(url) => update("fileUrl", url)}
+                downloadFilename={values.title}
               />
             </div>
 

@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { pdfDownloadFilename, toDownloadUrl } from "@/lib/media";
 
 interface FileUploadProps {
   value: string;
   onChange: (url: string) => void;
   kind: "pdf" | "video";
+  downloadFilename?: string;
 }
 
 const KIND_META = {
@@ -21,7 +23,7 @@ const KIND_META = {
   },
 } as const;
 
-export default function FileUpload({ value, onChange, kind }: FileUploadProps) {
+export default function FileUpload({ value, onChange, kind, downloadFilename }: FileUploadProps) {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -62,7 +64,11 @@ export default function FileUpload({ value, onChange, kind }: FileUploadProps) {
             />
           ) : (
             <a
-              href={value}
+              href={toDownloadUrl(
+                value,
+                pdfDownloadFilename(downloadFilename ?? "publication")
+              )}
+              download={pdfDownloadFilename(downloadFilename ?? "publication")}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 rounded-lg border border-light2 bg-light1 px-4 py-3 w-full max-w-sm hover:border-primary transition-colors"

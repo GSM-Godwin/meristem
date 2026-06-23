@@ -58,7 +58,7 @@ const contactItems = [
   {
     icon: PhoneIcon,
     label: "Phone Number",
-    value: "0808 832 7952",
+    value: "+234808 832 7952",
     href: "tel:08088327952",
   },
   {

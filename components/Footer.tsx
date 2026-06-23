@@ -40,8 +40,8 @@ export default function Footer() {
         <div>
           <h4 className="text-[#3B2314] font-semibold text-sm mb-4">Contact Us</h4>
           <ul className="flex flex-col gap-3 mb-6">
-            <li><Link href="mailto:" className="text-sm text-[#3B2314]/70 hover:text-[#3B2314] transition-colors">Email</Link></li>
-            <li><Link href="tel:" className="text-sm text-[#3B2314]/70 hover:text-[#3B2314] transition-colors">Phone Number</Link></li>
+            <li><Link href="mailto:familyoffice@meristemng.com" className="text-sm text-[#3B2314]/70 hover:text-[#3B2314] transition-colors">Email</Link></li>
+            <li><Link href="tel:08088327952" className="text-sm text-[#3B2314]/70 hover:text-[#3B2314] transition-colors">Phone Number</Link></li>
           </ul>
 
           <div className="flex items-center gap-4">

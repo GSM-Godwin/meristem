@@ -60,6 +60,7 @@ model Post {
   createdAt        DateTime     @default(now())
   updatedAt        DateTime     @updatedAt
   sections         Section[]
+  downloads        PublicationDownload[]
 
   @@index([category, status])
 }
@@ -99,4 +100,15 @@ model Inquiry {
   message   String
   status    InquiryStatus @default(NEW)
   createdAt DateTime      @default(now())
+}
+
+model PublicationDownload {
+  id            String   @id @default(cuid())
+  publicationId String
+  publication   Post     @relation(fields: [publicationId], references: [id])
+  email         String
+  phone         String
+  createdAt     DateTime @default(now())
+
+  @@index([publicationId, createdAt])
 }

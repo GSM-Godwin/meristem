@@ -2,11 +2,12 @@ import Image from "next/image";
 import logo from "@/assets/logo.png";
 import ArticleContent from "@/components/insights/ArticleContent";
 import ArticleShareBar from "@/components/insights/ArticleShareBar";
+import PublicationDownloadGate from "@/components/public/PublicationDownloadGate";
 import PostCard from "@/components/shared/PostCard";
 import Link from "next/link";
 import type { ContentBlock } from "@/lib/types/insight";
 import type { CardVariant } from "@/components/shared/PostCard";
-import { toDownloadUrl } from "@/lib/media";
+import { pdfDownloadFilename, toDownloadUrl } from "@/lib/media";
 
 export interface RelatedArticle {
   id: string;
@@ -35,6 +36,7 @@ export interface ArticleTemplateProps {
   content: ContentBlock[];
   shareUrl: string;
   fileUrl?: string;
+  publicationId?: string;
   comingSoon?: boolean;
   relatedPosts: RelatedArticle[];
   relatedHeading?: string;
@@ -50,6 +52,7 @@ export default function ArticleTemplate({
   content,
   shareUrl,
   fileUrl,
+  publicationId,
   comingSoon = false,
   relatedPosts,
   relatedHeading = "More post",
@@ -75,7 +78,8 @@ export default function ArticleTemplate({
     );
   }
 
-  const downloadUrl = fileUrl ? toDownloadUrl(fileUrl) : undefined;
+  const downloadFilename = pdfDownloadFilename(title);
+  const downloadUrl = fileUrl ? toDownloadUrl(fileUrl, downloadFilename) : undefined;
 
   return (
     <>
@@ -109,17 +113,28 @@ export default function ArticleTemplate({
                 <p className="text-base md:text-lg text-dark2 font-medium">{date}</p>
               </div>
             </div>
-            <ArticleShareBar url={shareUrl} title={title} downloadUrl={downloadUrl} />
+            <ArticleShareBar
+              url={shareUrl}
+              title={title}
+              downloadUrl={downloadUrl}
+              downloadGate={
+                publicationId && downloadUrl ? (
+                  <PublicationDownloadGate
+                    publicationId={publicationId}
+                    title={title}
+                    downloadUrl={downloadUrl}
+                  />
+                ) : undefined
+              }
+            />
           </div>
 
-          {/* Article body */}
           <div className="max-w-227.5">
             <ArticleContent blocks={content} />
           </div>
         </div>
       </article>
 
-      {/* Related posts */}
       {relatedPosts.length > 0 && (
         <section className="px-5 md:px-10 lg:px-20 pt-4 pb-20 bg-white">
           <div className="mx-auto">

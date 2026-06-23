@@ -45,6 +45,7 @@ export default async function PublicationDetailPage({ params }: PublicationPageP
           content={post.content}
           shareUrl={`${siteUrl}/publications/${post.slug}`}
           fileUrl={post.fileUrl ?? undefined}
+          publicationId={post.id}
           comingSoon={post.comingSoon}
           relatedPosts={related.map((r) => ({
             id: r.id,

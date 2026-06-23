@@ -33,12 +33,6 @@ const securityParagraph =
 const governingLawParagraph =
   "This privacy policy is made pursuant to the Nigeria Data Protection Act, 2023 (or any subsequent amendments thereof) and other relevant Nigerian laws, regulations or international conventions applicable to Nigeria. Where any provision of this Policy is deemed inconsistent with a law, regulation or convention, such provision shall be subject to the overriding law, regulation or convention.";
 
-const indemnificationParagraph =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Iaculis eget id lacinia sed quam feugiat purus nec molestie. Venenatis, leo tristique id enim amet morbi nisl. Vulputate arcu ullamcorper non nunc bibendum non morbi pellentesque. Elementum malesuada morbi nisl accumsan diam pellentesque. Sit eros, viverra sed sed consectetur ac varius turpis nisl. Amet sit imperdiet fermentum non tellus.";
-
-const dataProtectionParagraph =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Iaculis eget id lacinia sed quam feugiat purus nec molestie. Venenatis, leo tristique id enim amet morbi nisl. Vulputate arcu ullamcorper non nunc bibendum non morbi pellentesque. Elementum malesuada morbi nisl accumsan diam pellentesque. Sit eros, viverra sed sed consectetur ac varius turpis nisl. Amet sit imperdiet fermentum non tellus.";
-
 export const privacyPolicySections: LegalSection[] = [
   {
     id: "introduction",
@@ -65,11 +59,6 @@ export const privacyPolicySections: LegalSection[] = [
     id: "security",
     title: "Security",
     paragraphs: [securityParagraph],
-  },
-  {
-    id: "data-protection",
-    title: "Data Protection",
-    paragraphs: [dataProtectionParagraph],
   },
 ];
 
@@ -103,15 +92,5 @@ export const termsSections: LegalSection[] = [
     id: "governing-law",
     title: "Governing Law",
     paragraphs: [governingLawParagraph],
-  },
-  {
-    id: "indemnification",
-    title: "Indemnification",
-    paragraphs: [indemnificationParagraph],
-  },
-  {
-    id: "data-protection",
-    title: "Data Protection",
-    paragraphs: [dataProtectionParagraph],
   },
 ];

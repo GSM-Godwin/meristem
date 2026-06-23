@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
+import { pdfDownloadFilename } from "@/lib/media";
 
 interface ArticleShareBarProps {
   url: string;
   title: string;
   downloadUrl?: string;
+  downloadGate?: ReactNode;
 }
 
 function DownloadIcon() {
@@ -65,7 +67,12 @@ function SocialButton({
   );
 }
 
-export default function ArticleShareBar({ url, title, downloadUrl }: ArticleShareBarProps) {
+export default function ArticleShareBar({
+  url,
+  title,
+  downloadUrl,
+  downloadGate,
+}: ArticleShareBarProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -83,16 +90,17 @@ export default function ArticleShareBar({ url, title, downloadUrl }: ArticleShar
 
   return (
     <div className="flex items-center gap-3 shrink-0">
-      {downloadUrl && (
-        <a
-          href={downloadUrl}
-          download
-          className="flex items-center gap-2 px-3.5 py-2 rounded-lg text-base font-semibold bg-yellow text-white hover:opacity-90 transition-opacity"
-        >
-          <DownloadIcon />
-          Download
-        </a>
-      )}
+      {downloadGate ??
+        (downloadUrl && (
+          <a
+            href={downloadUrl}
+            download={pdfDownloadFilename(title)}
+            className="flex items-center gap-2 px-3.5 py-2 rounded-lg text-base font-semibold bg-yellow text-white hover:opacity-90 transition-opacity"
+          >
+            <DownloadIcon />
+            Download
+          </a>
+        ))}
 
       <button
         type="button"
