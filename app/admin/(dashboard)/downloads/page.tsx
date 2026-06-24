@@ -59,8 +59,8 @@ export default async function DownloadsPage({
         <DownloadsPageContent
           downloads={downloads.map((row) => ({
             id: row.id,
+            name: row.name ?? "",
             email: row.email,
-            phone: row.phone,
             publicationTitle: row.publication.title,
             downloadedAt: formatDownloadDate(row.createdAt),
           }))}

@@ -1,10 +1,8 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import PhoneInput from "react-phone-number-input";
-import "react-phone-number-input/style.css";
 import { recordPublicationDownload } from "@/app/publications/actions";
-import { isValidEmail, isValidPhone } from "@/lib/contact-validation";
+import { isValidEmail, isValidName } from "@/lib/contact-validation";
 import { pdfDownloadFilename } from "@/lib/media";
 
 interface PublicationDownloadGateProps {
@@ -19,10 +17,10 @@ export default function PublicationDownloadGate({
   downloadUrl,
 }: PublicationDownloadGateProps) {
   const [open, setOpen] = useState(false);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState<string | undefined>();
+  const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
-  const [phoneError, setPhoneError] = useState("");
   const [submitError, setSubmitError] = useState("");
   const [pending, startTransition] = useTransition();
 
@@ -30,8 +28,8 @@ export default function PublicationDownloadGate({
     "w-full px-4 py-3.5 sm:py-3 text-base text-[#181D27] border border-[#DEE3EB] rounded-lg outline-none focus:border-yellow placeholder:text-[#A5ADC0]";
 
   function resetErrors() {
+    setNameError("");
     setEmailError("");
-    setPhoneError("");
     setSubmitError("");
   }
 
@@ -54,13 +52,13 @@ export default function PublicationDownloadGate({
     resetErrors();
     let valid = true;
 
-    if (!email.trim() || !isValidEmail(email.trim())) {
-      setEmailError("Please enter a valid email address.");
+    if (!isValidName(name)) {
+      setNameError("Please enter your full name.");
       valid = false;
     }
 
-    if (!phone || !isValidPhone(phone)) {
-      setPhoneError("Please enter a valid phone number.");
+    if (!email.trim() || !isValidEmail(email.trim())) {
+      setEmailError("Please enter a valid email address.");
       valid = false;
     }
 
@@ -74,8 +72,8 @@ export default function PublicationDownloadGate({
     startTransition(async () => {
       const result = await recordPublicationDownload(
         publicationId,
-        email.trim(),
-        phone ?? ""
+        name.trim(),
+        email.trim()
       );
 
       if ("error" in result) {
@@ -139,15 +137,15 @@ export default function PublicationDownloadGate({
               Just one quick step
             </h2>
 
-            <p className="text-sm text-[#535862] leading-relaxed mb-6">
-              Put in your email and phone number below and your download will
-              start right away. 
-            </p>
-            
-            <p className="text-[10px] italic text-[#535862] leading-relaxed mb-6">
-              We'll only use your details to send this resource and relevant updates. Your information will never be shared.
+            <p className="text-sm text-[#535862] leading-relaxed">
+              Pop in your email and full name below and your download will start
+              right away.
             </p>
 
+            <p className="text-[10px] italic text-[#535862] leading-relaxed mb-6">
+              We&apos;ll only use your details to send this resource and relevant
+              updates. Your information will never be shared.
+            </p>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
               {submitError && (
@@ -155,6 +153,22 @@ export default function PublicationDownloadGate({
                   {submitError}
                 </div>
               )}
+
+              <div className="flex flex-col gap-2">
+                <label htmlFor="gate-name" className="text-sm font-medium text-[#535862]">
+                  Name
+                </label>
+                <input
+                  id="gate-name"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className={`${inputClassName}${nameError ? " border-red-400" : ""}`}
+                />
+                {nameError && (
+                  <p className="text-xs text-red-600">{nameError}</p>
+                )}
+              </div>
 
               <div className="flex flex-col gap-2">
                 <label htmlFor="gate-email" className="text-sm font-medium text-[#535862]">
@@ -170,23 +184,6 @@ export default function PublicationDownloadGate({
                 />
                 {emailError && (
                   <p className="text-xs text-red-600">{emailError}</p>
-                )}
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label htmlFor="gate-phone" className="text-sm font-medium text-[#535862]">
-                  Phone number
-                </label>
-                <PhoneInput
-                  id="gate-phone"
-                  className="text-neutral"
-                  defaultCountry="NG"
-                  value={phone}
-                  onChange={setPhone}
-                  numberInputProps={{ className: inputClassName }}
-                />
-                {phoneError && (
-                  <p className="text-xs text-red-600">{phoneError}</p>
                 )}
               </div>
 

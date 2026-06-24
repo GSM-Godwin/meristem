@@ -106,8 +106,9 @@ model PublicationDownload {
   id            String   @id @default(cuid())
   publicationId String
   publication   Post     @relation(fields: [publicationId], references: [id])
+  name          String?
   email         String
-  phone         String
+  phone         String?
   createdAt     DateTime @default(now())
 
   @@index([publicationId, createdAt])

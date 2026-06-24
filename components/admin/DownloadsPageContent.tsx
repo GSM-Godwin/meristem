@@ -5,8 +5,8 @@ import Pagination from "@/components/shared/Pagination";
 
 export interface DownloadRow {
   id: string;
+  name: string;
   email: string;
-  phone: string;
   publicationTitle: string;
   downloadedAt: string;
 }
@@ -114,8 +114,8 @@ export default function DownloadsPageContent({
                 key={row.id}
                 className="bg-white rounded-xl border border-light2 p-4 space-y-2"
               >
-                <p className="font-medium text-dark1 text-sm break-all">{row.email}</p>
-                <p className="text-xs text-neutral">{row.phone}</p>
+                <p className="font-medium text-dark1 text-sm">{row.name || "—"}</p>
+                <p className="text-xs text-neutral break-all">{row.email}</p>
                 <p className="text-sm text-dark1">{row.publicationTitle}</p>
                 <p className="text-xs text-neutral">{row.downloadedAt}</p>
               </div>
@@ -127,10 +127,10 @@ export default function DownloadsPageContent({
               <thead>
                 <tr className="border-b border-light2 bg-light1">
                   <th className="text-left px-5 py-3 text-xs font-medium text-neutral uppercase tracking-wide">
-                    Email
+                    Name
                   </th>
                   <th className="text-left px-5 py-3 text-xs font-medium text-neutral uppercase tracking-wide">
-                    Phone
+                    Email
                   </th>
                   <th className="text-left px-5 py-3 text-xs font-medium text-neutral uppercase tracking-wide">
                     Publication
@@ -143,8 +143,8 @@ export default function DownloadsPageContent({
               <tbody className="divide-y divide-light2">
                 {downloads.map((row) => (
                   <tr key={row.id} className="hover:bg-light1/60 transition-colors">
+                    <td className="px-5 py-4 text-dark1">{row.name || "—"}</td>
                     <td className="px-5 py-4 text-dark1 break-all">{row.email}</td>
-                    <td className="px-5 py-4 text-neutral whitespace-nowrap">{row.phone}</td>
                     <td className="px-5 py-4 text-dark1">{row.publicationTitle}</td>
                     <td className="px-5 py-4 text-neutral whitespace-nowrap">{row.downloadedAt}</td>
                   </tr>

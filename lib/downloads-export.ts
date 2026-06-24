@@ -24,8 +24,8 @@ export async function buildDownloadsWorkbook(publicationId?: string): Promise<Ex
   const sheet = workbook.addWorksheet("Downloads");
 
   sheet.columns = [
+    { header: "Name", key: "name", width: 28 },
     { header: "Email", key: "email", width: 32 },
-    { header: "Phone", key: "phone", width: 20 },
     { header: "Publication", key: "publication", width: 48 },
     { header: "Downloaded At", key: "downloadedAt", width: 24 },
   ];
@@ -34,8 +34,8 @@ export async function buildDownloadsWorkbook(publicationId?: string): Promise<Ex
 
   for (const row of downloads) {
     sheet.addRow({
+      name: row.name ?? "",
       email: row.email,
-      phone: row.phone,
       publication: row.publication.title,
       downloadedAt: formatDownloadDate(row.createdAt),
     });
