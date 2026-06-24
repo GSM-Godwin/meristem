@@ -41,6 +41,9 @@ export default function Navbar() {
           <Link href="/about" className="px-5 h-12 flex items-center text-white text-[16px] hover:opacity-75 transition-opacity">
             About Us
           </Link>
+          <Link href="/board" className="px-5 h-12 flex items-center text-white text-[16px] hover:opacity-75 transition-opacity">
+            Team
+          </Link>
           <Link href="/insights" className="px-5 h-12 flex items-center text-white text-[16px] hover:opacity-75 transition-opacity">
             Insights
           </Link>
@@ -57,6 +60,13 @@ export default function Navbar() {
               onClick={() => setMobileOpen(false)}
             >
               About Us
+            </Link>
+            <Link
+              href="/board"
+              className="px-6 py-4 text-[#3B2314] font-medium text-base border-b border-[#6B3A1F]/10 hover:bg-[#6B3A1F]/5"
+              onClick={() => setMobileOpen(false)}
+            >
+              Team
             </Link>
             <Link
               href="/insights"
@@ -87,7 +97,7 @@ export default function Navbar() {
 
       </header>
 
-      <div className="h-[88px] md:h-32" />
+      <div className="h-22 md:h-32" />
     </>
   );
 }

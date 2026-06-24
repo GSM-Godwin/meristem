@@ -16,7 +16,7 @@ export default function BoardPage() {
     <>
       <Navbar />
       <main className="bg-white">
-        <PageHero title="Board of Directors" />
+        <PageHero title="Team" />
         <BoardSection title="Board of Directors" members={boardOfDirectors} />
         {/* <BoardSection title="Executive Management" members={executiveManagement} /> */}
       </main>

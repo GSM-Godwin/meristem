@@ -141,8 +141,13 @@ export default function PublicationDownloadGate({
 
             <p className="text-sm text-[#535862] leading-relaxed mb-6">
               Put in your email and phone number below and your download will
-              start right away.
+              start right away. 
             </p>
+            
+            <p className="text-xs italic text-[#535862] leading-relaxed mb-6">
+              We'll only use your details to send this resource and relevant updates. Your information will never be shared.
+            </p>
+
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
               {submitError && (

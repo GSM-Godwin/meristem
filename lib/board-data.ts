@@ -7,65 +7,65 @@ export interface BoardMember {
 export const boardOfDirectors: BoardMember[] = [
   {
     name: "Amina Maina",
-    position: "",
+    position: "Chairman",
     imageUrl: "/amina.jpeg",
   },
   {
-    name: "Kemi Ojenike",
-    position: "",
-    imageUrl: "/kemi.jpeg",
-  },
-  {
     name: "Ohis Ohiwerei",
-    position: "",
+    position: "Director",
     imageUrl: "/Ohis.jpeg",
   },
   {
     name: "Sulaiman Adedokun",
-    position: "",
+    position: "CFA - Group Managing Director",
     imageUrl: "/Sulaiman.jpeg",
+  },
+  {
+    name: "Kemi Ojenike",
+    position: "Managing Director",
+    imageUrl: "/kemi.jpeg",
   },
 ];
 
 export const executiveManagement: BoardMember[] = [
   {
-    name: "Sulaiman Adekogun, CFA",
-    position: "Group Managing Director — Meristem Securities Limited",
+    name: "",
+    position: "",
     imageUrl: "",
   },
   {
-    name: "Mubo Olabode",
-    position: "Director — Meristem Finance Limited",
+    name: "",
+    position: "",
     imageUrl: "",
   },
   {
-    name: "Damilola Hassan",
-    position: "Managing Director — Meristem Trustees Limited",
+    name: "",
+    position: "",
     imageUrl: "",
   },
   {
-    name: "Bamidele Bashir",
-    position: "Managing Director — Meristem Registrars & Probate Services Limited",
+    name: "",
+    position: "",
     imageUrl: "",
   },
   {
-    name: "Kemi Ogunleye",
-    position: "Managing Director — Meristem Wealth Management",
+    name: "",
+    position: "",
     imageUrl: "",
   },
   {
-    name: "Tunde Ajayi",
-    position: "Managing Director — Meristem Capital Limited",
+    name: "",
+    position: "",
     imageUrl: "",
   },
   {
-    name: "Oscar Nduka Onyema",
-    position: "Chairman — Meristem Stockbrokers Limited",
+    name: "",
+    position: "",
     imageUrl: "",
   },
   {
-    name: "Adaeze Okonkwo",
-    position: "Head, Family Office — Meristem Family Office",
+    name: "",
+    position: "",
     imageUrl: "",
   },
 ];
