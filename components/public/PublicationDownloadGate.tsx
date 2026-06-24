@@ -144,7 +144,7 @@ export default function PublicationDownloadGate({
               start right away. 
             </p>
             
-            <p className="text-xs italic text-[#535862] leading-relaxed mb-6">
+            <p className="text-[10px] italic text-[#535862] leading-relaxed mb-6">
               We'll only use your details to send this resource and relevant updates. Your information will never be shared.
             </p>
 

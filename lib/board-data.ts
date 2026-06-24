@@ -16,8 +16,8 @@ export const boardOfDirectors: BoardMember[] = [
     imageUrl: "/Ohis.jpeg",
   },
   {
-    name: "Sulaiman Adedokun",
-    position: "CFA - Group Managing Director",
+    name: "Sulaiman Adedokun, CFA",
+    position: "Group Managing Director",
     imageUrl: "/Sulaiman.jpeg",
   },
   {
