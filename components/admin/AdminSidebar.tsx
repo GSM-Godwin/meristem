@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.svg";
 import { logoutAction } from "@/app/admin/(dashboard)/actions";
 import { useAdminSidebar } from "./AdminSidebarContext";
 

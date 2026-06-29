@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.svg";
 import ArticleContent from "@/components/insights/ArticleContent";
 import ArticleShareBar from "@/components/insights/ArticleShareBar";
 import PublicationDownloadGate from "@/components/public/PublicationDownloadGate";

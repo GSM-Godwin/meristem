@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.svg";
 import type { ContentBlock } from "@/lib/types/insight";
 import { renderRichText } from "@/lib/renderRichText";
 

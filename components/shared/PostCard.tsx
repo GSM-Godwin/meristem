@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.svg";
 import PlayButton from "@/components/perspectives/PlayButton";
 
 function ArrowUpRight({ className = "" }: { className?: string }) {

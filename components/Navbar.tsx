@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.svg";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);

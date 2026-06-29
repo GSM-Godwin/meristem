@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.svg";
 import ArrowUpRight from "@/components/insights/ArrowUpRight";
 import type { Insight } from "@/lib/types/insight";
 
