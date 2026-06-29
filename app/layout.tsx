@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Outfit } from "next/font/google";
 import "./globals.css";
-
 const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-outfit",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     url: "https://www.meristemfamilyoffice.com",
     images: [
       {
-        url: "/og-image.png",
+        url: "/logo.png",
         width: 1200,
         height: 630,
         alt: "Meristem Family Office",
@@ -40,12 +40,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Meristem Family Office",
     description,
-    images: ["/og-image.png"],
+    images: ["/logo.png"],
   },
 
   icons: {
     icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    apple: "/logo.png",
   },
 
   robots: {
@@ -59,6 +59,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+
   return (
     <html
       lang="en"
@@ -67,6 +69,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col font-[family-name:var(--font-outfit)]">
         {children}
       </body>
+      {gaMeasurementId ? <GoogleAnalytics gaId={gaMeasurementId} /> : null}
     </html>
   );
 }
